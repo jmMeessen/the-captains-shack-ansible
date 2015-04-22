@@ -1,7 +1,8 @@
-# the captain's shack
+# The Captain's Shack
 
 A random experimentation about a Docker hosting server configured with Ansible.
 
 It might turn out like this.
 
-![Captain's shack](https://ipswich.files.wordpress.com/2014/09/lew_kilborn_shack.jpg)
+![Captain's shack](misc/lew_kilborn_shack.jpg)
+in [Lewis Kilborn, the last resident of Grape Island](https://ipswich.wordpress.com/2014/09/15/lewis-kilborn-last-man-on-grape-island/)
