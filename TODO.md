@@ -2,7 +2,7 @@
 
 ## Sprint 1
 
-**Objective**: Learn Ansible and automated Centos7 setup on Vagrant box
+**Objective**: Learn Ansible and automate Centos7 setup on Vagrant box
 
 - [x] Install & Setup Ansible
 - [x] How to configure Centos' firewall (open new port)
@@ -16,9 +16,11 @@
 - [ ] SSH - Deactivate Password authentication
 - [ ] SSH - Activate port/socket forwarding 
 
+Note: All setup steps or milestone should be testable (BATS)
+
 ## Sprint 2
 
-**Objective**: Push automated setup to bare server
+**Objective**: Push the automated setup to bare server
 
 ## Sprint 3
 
