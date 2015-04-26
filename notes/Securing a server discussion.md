@@ -10,6 +10,9 @@
 - White Paper about securing SSH key's: http://www.cyberark.com/resource/discover-keys-securing-ssh/
 - http://security.stackexchange.com/questions/10963/whats-the-common-pragmatic-strategy-for-managing-key-pairs
 - OWASP about certificate pinning: https://www.owasp.org/index.php/Certificate_and_Public_Key_Pinning (With a mobile bias)
+- https://derpops.bike/2014/06/07/ssh-key-rotation-with-ansible/
+- https://serversforhackers.com/ssh-tricks
+- http://serverfault.com/questions/545978/how-to-handle-ssh-port-changes-with-ansible
 
 ## Two-factor SSH authentication
 
