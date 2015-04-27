@@ -5,6 +5,7 @@
 
 
 ## SSH key management
+- http://wiki.centos.org/HowTos/Network/SecuringSSH
 - http://security.stackexchange.com/questions/18926/best-practice-one-per-user-ssh-key-or-multiple-per-host-ssh-keys
 - http://www.codero.com/knowledge-base/questions/300/How+to+use+public+key+authentication+with+SSH+users
 - White Paper about securing SSH key's: http://www.cyberark.com/resource/discover-keys-securing-ssh/
@@ -25,8 +26,14 @@
 ### Ansible and two-factor SSH authentication
 
 - It doesn't really work : https://github.com/ansible/ansible/issues/10065 
-- Somebody describes a workarount: http://stackoverflow.com/questions/23115619/how-to-use-ansible-with-two-factor-authentication
+- Somebody describes a workaround: http://stackoverflow
+.com/questions/23115619/how-to-use-ansible-with-two-factor-authentication
 - http://coder36.blogspot.be/2014/12/raspberry-pi-vpn-with-google.html
+
+
+## Password strength
+- http://theurbanpenguin.com/wp/?p=3401
+- Yubico key https://www.yubico.com/products/yubikey-hardware/yubikey-2/
 
 
 
