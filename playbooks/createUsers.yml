@@ -1,0 +1,15 @@
+#tasks:
+  - name: create test user
+    user: name=testuser
+        createhome=yes
+        generate_ssh_key=yes
+        state=present
+        password="$6$rounds=100000$hUYRSsggVxkscDtv$M6skX3VUJ995V9UGniVz5pQ6bQJEWMZCASKmevQsgHUklcAJj.yjhyVB0cFqgf.puW7/PB9PJbkM1WS.L5Z.o1"
+    register: newuser
+
+# To generate password :python -c "from passlib.hash import sha512_crypt; import getpass; print sha512_crypt.encrypt(getpass.getpass())"
+
+
+#  - name: generate random password for user only on creation
+#    shell: /usr/bin/openssl rand -base64 32 | passwd --stdin testuser
+#    when: newuser.changed

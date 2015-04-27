@@ -13,7 +13,10 @@
 - OWASP about certificate pinning: https://www.owasp.org/index.php/Certificate_and_Public_Key_Pinning (With a mobile bias)
 - https://derpops.bike/2014/06/07/ssh-key-rotation-with-ansible/
 - https://serversforhackers.com/ssh-tricks
-- http://serverfault.com/questions/545978/how-to-handle-ssh-port-changes-with-ansible
+- [Changing the SSH port with Ansible](http://serverfault
+.com/questions/545978/how-to-handle-ssh-port-changes-with-ansible)
+    - _"Is it possible to automate this by having Ansible fallback to a specified port if the connection could not be
+     established to the default SSH port?"_
 
 ## Two-factor SSH authentication
 

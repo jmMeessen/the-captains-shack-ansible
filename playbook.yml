@@ -1,8 +1,17 @@
 ---
 - hosts: all
   sudo: yes
+  vars:
+     oldsshport: 2222
+     sshport: 10022
 
   tasks:
+#  - name: change the SSH port
+#    include: playbooks/remapSshPort.yml
+
+  - name: create users
+    include: playbooks/createUsers.yml
+
   - name: Install or update firewalld
     yum: pkg=firewalld state=latest
 
