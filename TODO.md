@@ -8,8 +8,8 @@
 - [x] How to configure Centos' firewall (open new port)
 - [ ] Configure deported SSH port
 - [x] Create users
-- [ ] setup SSH access for dito
-- [ ] Assign new users to sudo group
+- [x] setup SSH access for dito
+- [x] Assign new users to sudo group
 - [ ] Désactiver le mode execution dans /tmp
 - [ ] SSH - Deactivate Root access
 - [ ] SSH - Deactivate X11 forwarding

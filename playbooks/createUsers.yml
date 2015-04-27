@@ -4,6 +4,7 @@
         createhome=yes
         generate_ssh_key=yes
         state=present
+        groups=wheel
         password="$6$rounds=100000$hUYRSsggVxkscDtv$M6skX3VUJ995V9UGniVz5pQ6bQJEWMZCASKmevQsgHUklcAJj.yjhyVB0cFqgf.puW7/PB9PJbkM1WS.L5Z.o1"
     register: newuser
 

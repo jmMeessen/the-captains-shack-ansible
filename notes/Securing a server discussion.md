@@ -5,6 +5,7 @@
 
 
 ## SSH key management
+- http://www.hashbangcode.com/blog/ansible-ssh-setup-playbook
 - http://wiki.centos.org/HowTos/Network/SecuringSSH
 - http://security.stackexchange.com/questions/18926/best-practice-one-per-user-ssh-key-or-multiple-per-host-ssh-keys
 - http://www.codero.com/knowledge-base/questions/300/How+to+use+public+key+authentication+with+SSH+users
