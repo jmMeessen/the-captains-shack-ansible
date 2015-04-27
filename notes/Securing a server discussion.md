@@ -20,6 +20,7 @@
 - https://www.digitalocean.com/community/tutorials/how-to-protect-ssh-with-two-factor-authentication
 - http://www.howtogeek.com/121650/how-to-secure-ssh-with-google-authenticators-two-factor-authentication/
 - Podcast about 2 factor auth: http://hackerpublicradio.org/eps.php?id=1161
+- https://www.rosehosting.com/blog/how-to-secure-your-ssh-using-two-step-authentication-on-centos-6/
 
 ### Ansible and two-factor SSH authentication
 
