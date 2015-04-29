@@ -10,10 +10,10 @@
 - [x] setup SSH access for dito
 - [x] Assign new users to sudo group
 - [ ] reconfigure SSH/SSHD by creating a SSHD configuration file
-    - [ ] Configure deported SSH port
-    - [ ] SSH - Deactivate Root access
-    - [ ] SSH - Deactivate X11 forwarding
-    - [ ] SSH - Deactivate SFTP
+    - [ ] Configure deported SSH port (`Port 10022`)
+    - [ ] SSH - Deactivate Root access (`PermitRootLogin no`)
+    - [ ] SSH - Deactivate X11 forwarding  (`X11Forwarding no`)
+    - [ ] SSH - Deactivate SFTP. Might conflict with Ansible.
     - [ ] SSH - Deactivate Password authentication
     - [ ] SSH - Activate port/socket forwarding 
 - [ ] Désactiver le mode execution dans /tmp
