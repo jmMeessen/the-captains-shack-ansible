@@ -6,16 +6,17 @@
 
 - [x] Install & Setup Ansible
 - [x] How to configure Centos' firewall (open new port)
-- [ ] Configure deported SSH port
 - [x] Create users
 - [x] setup SSH access for dito
 - [x] Assign new users to sudo group
+- [ ] reconfigure SSH/SSHD by creating a SSHD configuration file
+    - [ ] Configure deported SSH port
+    - [ ] SSH - Deactivate Root access
+    - [ ] SSH - Deactivate X11 forwarding
+    - [ ] SSH - Deactivate SFTP
+    - [ ] SSH - Deactivate Password authentication
+    - [ ] SSH - Activate port/socket forwarding 
 - [ ] Désactiver le mode execution dans /tmp
-- [ ] SSH - Deactivate Root access
-- [ ] SSH - Deactivate X11 forwarding
-- [ ] SSH - Deactivate SFTP
-- [ ] SSH - Deactivate Password authentication
-- [ ] SSH - Activate port/socket forwarding 
 
 Note: All setup steps or milestone should be testable (BATS)
 
