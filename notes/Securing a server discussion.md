@@ -46,6 +46,10 @@ paper is used to support the sale of the ARK solution.
 - [Changing the SSH port with Ansible](http://serverfault.com/questions/545978/how-to-handle-ssh-port-changes-with-ansible)
     - _"Is it possible to automate this by having Ansible fallback to a specified port if the connection could not be
      established to the default SSH port?"_
+- [The first 5 minutes with a server and Ansible](http://practicalops.com/tag/ansible.html)
+- [Securimg a sever with Ansible](http://ryaneschinger.com/blog/securing-a-server-with-ansible/) - Ubuntu oriented.
+- [Ansible security role](https://github.com/geerlingguy/ansible-role-security) - a GIT repo from the author of 
+[Ansible for DevOps](https://leanpub.com/ansible-for-devops).
 
 ## Two-factor SSH authentication
 
