@@ -17,3 +17,7 @@ When starting the Centos7 box, I had the following error
 ```
 
 This was solved by issuing the following command that forces the (re)installation of the guest addons `vagrant plugin install vagrant-vbguest`
+
+## installing Ansible on Mac OSX
+
+[Install instruction](https://devopsu.com/guides/ansible-mac-osx.html)
