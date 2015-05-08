@@ -2,6 +2,7 @@
 
 - http://www.tldp.org/LDP/lame/LAME/linux-admin-made-easy/security.html
 - hardening Ubuntu : http://blog.mattbrock.co.uk/hardening-the-security-on-ubuntu-server-14-04/
+- [No exec int the temporary directories](http://www.cyberciti.biz/faq/linux-add-nodev-nosuid-noexec-options-to-temporary-storage-partitions)
 
 
 ## Securing SSH and SSH keys

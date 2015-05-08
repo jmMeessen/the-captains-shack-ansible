@@ -4,13 +4,13 @@
   vars_files:
     - vars/main.yml
 
+  pre_tasks:
+    - shell: echo 'hello'
+
   roles:
      - security_level1
 
   tasks:
-#  - name: change the SSH port
-#    include: playbooks/remapSshPort.yml
-
 #  - name: create users
 #    include: playbooks/createUsers.yml
 #
