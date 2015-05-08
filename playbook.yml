@@ -5,8 +5,7 @@
     - vars/main.yml
 
   roles:
-     - geerlingguy.repo-epel
-     - geerlingguy.security
+     - security_level1
 
   tasks:
 #  - name: change the SSH port

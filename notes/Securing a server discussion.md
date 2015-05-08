@@ -62,8 +62,7 @@ paper is used to support the sale of the ARK solution.
 ### Ansible and two-factor SSH authentication
 
 - It doesn't really work : https://github.com/ansible/ansible/issues/10065 
-- Somebody describes a workaround: http://stackoverflow
-.com/questions/23115619/how-to-use-ansible-with-two-factor-authentication
+- Somebody describes a workaround: http://stackoverflow.com/questions/23115619/how-to-use-ansible-with-two-factor-authentication
 - http://coder36.blogspot.be/2014/12/raspberry-pi-vpn-with-google.html
 
 
