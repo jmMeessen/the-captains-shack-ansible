@@ -9,7 +9,6 @@
 - [x] Create users
     - [ ] dadou
     - [ ] jmm
-    - ~[ ] Ansible account~
 - [x] setup SSH access for dito
 - [x] Assign new users to sudo group
 - [ ] reconfigure SSH/SSHD by creating a SSHD configuration file
