@@ -3,7 +3,8 @@
 - http://www.tldp.org/LDP/lame/LAME/linux-admin-made-easy/security.html
 - hardening Ubuntu : http://blog.mattbrock.co.uk/hardening-the-security-on-ubuntu-server-14-04/
 - [No exec int the temporary directories](http://www.cyberciti.biz/faq/linux-add-nodev-nosuid-noexec-options-to-temporary-storage-partitions)
-
+- [Notes about an Ansible machine setup](http://blog.dhananjaynene.com/2013/10/hands-on-ansible-tutorial/) (has a 
+paragraph on enforcing password rules)
 
 ## Securing SSH and SSH keys
 - [Setting up SSH with Ansible](http://www.hashbangcode.com/blog/ansible-ssh-setup-playbook). An article describing 
@@ -54,17 +55,23 @@ paper is used to support the sale of the ARK solution.
 
 ## Two-factor SSH authentication
 
+- [How To: Setting Up Google's Two-Factor Authentication In Linux](https://isc.sans.edu/forums/diary/How+To+Setting+Up+Googles+TwoFactor+Authentication+In+Linux/16270/)
+In the comments there is a discussion on how to mix public key authentication and two factor authentication.
 - https://wiki.archlinux.org/index.php/Google_Authenticator
 - https://www.digitalocean.com/community/tutorials/how-to-protect-ssh-with-two-factor-authentication
 - http://www.howtogeek.com/121650/how-to-secure-ssh-with-google-authenticators-two-factor-authentication/
 - Podcast about 2 factor auth: http://hackerpublicradio.org/eps.php?id=1161
 - https://www.rosehosting.com/blog/how-to-secure-your-ssh-using-two-step-authentication-on-centos-6/
+- https://wiki.archlinux.org/index.php/SSH_keys#Two-factor_authentication_and_public_keys
 
 ### Ansible and two-factor SSH authentication
 
 - It doesn't really work : https://github.com/ansible/ansible/issues/10065 
 - Somebody describes a workaround: http://stackoverflow.com/questions/23115619/how-to-use-ansible-with-two-factor-authentication
 - http://coder36.blogspot.be/2014/12/raspberry-pi-vpn-with-google.html
+
+## VPN installation
+[A collection  of playbooks for various types of VPN](https://github.com/ftao/vpn-deploy-playbook)
 
 
 ## Password strength
