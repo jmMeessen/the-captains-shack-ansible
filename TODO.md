@@ -9,7 +9,7 @@
 - [x] Create users
     - [ ] dadou
     - [ ] jmm
-    - [ ] Ansible account
+    - ~[ ] Ansible account~
 - [x] setup SSH access for dito
 - [x] Assign new users to sudo group
 - [ ] reconfigure SSH/SSHD by creating a SSHD configuration file
@@ -20,6 +20,10 @@
     - [x] SSH - Deactivate Password authentication
     - [ ] SSH - Activate port/socket forwarding 
 - [ ] Désactiver le mode execution dans /tmp
+- [ ] install and configure AIDE
+
+The first step will be to activate two factor authentication for regular user and public key auth for the ansible (vagrant) account
+The next step will be to enable openVPN. It will require a two step installation.
 
 Note: All setup steps or milestone should be testable (BATS)
 
