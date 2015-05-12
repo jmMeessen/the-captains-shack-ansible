@@ -1,2 +1,7 @@
 security_ssh_port: 22
 security_autoupdate_enabled: true
+adminUsers:
+  - jmm
+  - dadou
+
+security_sudoers_passwordless: "{{ adminUsers }}"

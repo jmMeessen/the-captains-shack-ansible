@@ -9,6 +9,7 @@
 - [x] Create users
     - [ ] dadou
     - [ ] jmm
+- [ ] Set the time to Central European Time
 - [x] setup SSH access for dito
 - [x] Assign new users to sudo group
 - [ ] reconfigure SSH/SSHD by creating a SSHD configuration file

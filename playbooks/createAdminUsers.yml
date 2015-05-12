@@ -6,25 +6,18 @@
         state=present
         groups=wheel
         password="$6$rounds=100000$DotqIzX010bHLjJL$Q0UtYwxBQkCWtYZsx6XKUYKOTIE3jbjMkMrIQf2IXbmsBFpnyUyorsdCTZpRl4uRUWG6D6VJo5BKLxgpJA3GV."
-    with_items:
-        - dadou
-        - jmm
+    with_items: adminUsers
+
+  - name: Pre-expire passwords
+    shell: sudo chage -d 0 "{{ item }}"
+    with_items: adminUsers
 
   - name : update authorized keys
     authorized_key: user="{{ item }}"
-                    key="{{ lookup('file', 'public_keys/jmm') }}"
+                    key="{{ lookup('file', 'public_keys/' + item) }}"
                     state=present
                     manage_dir=yes
                     exclusive=yes
-    with_items:
-        - dadou
-        - jmm
-
-#                    #key="public_keys/{{ item }}"
+    with_items: adminUsers
 
 # To generate password :python -c "from passlib.hash import sha512_crypt; import getpass; print sha512_crypt.encrypt(getpass.getpass())"
-
-
-#  - name: generate random password for user only on creation
-#    shell: /usr/bin/openssl rand -base64 32 | passwd --stdin testuser
-#    when: newuser.changed

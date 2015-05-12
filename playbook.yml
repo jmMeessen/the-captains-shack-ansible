@@ -5,15 +5,14 @@
     - vars/main.yml
 
   pre_tasks:
-    - shell: echo 'hello'
+  - name: create admin users
+    include: playbooks/createAdminUsers.yml
 
   roles:
      - security_level1
 
   tasks:
-  - name: create users
-    include: playbooks/createUsers.yml
-#
+
   - name: Install or update firewalld
     yum: pkg=firewalld state=latest
 
