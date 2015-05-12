@@ -11,8 +11,8 @@
      - security_level1
 
   tasks:
-#  - name: create users
-#    include: playbooks/createUsers.yml
+  - name: create users
+    include: playbooks/createUsers.yml
 #
   - name: Install or update firewalld
     yum: pkg=firewalld state=latest

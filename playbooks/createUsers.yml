@@ -1,12 +1,26 @@
 #tasks:
-  - name: create test user
-    user: name=testuser
+  - name: create admin accounts
+    user: name="{{ item }}"
         createhome=yes
-        generate_ssh_key=yes
+        generate_ssh_key=no
         state=present
         groups=wheel
-        password="$6$rounds=100000$hUYRSsggVxkscDtv$M6skX3VUJ995V9UGniVz5pQ6bQJEWMZCASKmevQsgHUklcAJj.yjhyVB0cFqgf.puW7/PB9PJbkM1WS.L5Z.o1"
-    register: newuser
+        password="$6$rounds=100000$DotqIzX010bHLjJL$Q0UtYwxBQkCWtYZsx6XKUYKOTIE3jbjMkMrIQf2IXbmsBFpnyUyorsdCTZpRl4uRUWG6D6VJo5BKLxgpJA3GV."
+    with_items:
+        - dadou
+        - jmm
+
+  - name : update authorized keys
+    authorized_key: user="{{ item }}"
+                    key="{{ lookup('file', 'public_keys/jmm') }}"
+                    state=present
+                    manage_dir=yes
+                    exclusive=yes
+    with_items:
+        - dadou
+        - jmm
+
+#                    #key="public_keys/{{ item }}"
 
 # To generate password :python -c "from passlib.hash import sha512_crypt; import getpass; print sha512_crypt.encrypt(getpass.getpass())"
 
