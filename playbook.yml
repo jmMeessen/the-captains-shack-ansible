@@ -8,6 +8,9 @@
   - name: create admin users
     include: playbooks/createAdminUsers.yml
 
+  - name: set timezone
+    file: src=/usr/share/zoneinfo/Europe/Brussels  dest=/etc/localtime state=link force=yes
+
   roles:
      - security_level1
 
