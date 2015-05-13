@@ -20,6 +20,7 @@
     - [x] SSH - Deactivate Password authentication
     - [ ] SSH - Activate port/socket forwarding 
 - [ ] Désactiver le mode execution dans /tmp
+- [ ] Install BATS
 
 The first step will be to activate two factor authentication for regular user and public key auth for the ansible (vagrant) account
 The next step will be to enable openVPN. It will require a two step installation.
