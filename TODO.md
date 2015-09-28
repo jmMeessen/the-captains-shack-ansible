@@ -15,8 +15,8 @@
 - [ ] reconfigure SSH/SSHD by creating a SSHD configuration file
     - [ ] Configure deported SSH port (`Port 10022`)
     - [x] SSH - Deactivate Root access (`PermitRootLogin no`)
-    - [ ] SSH - Deactivate X11 forwarding  (`X11Forwarding no`)
-    - [ ] SSH - Deactivate SFTP. Might conflict with Ansible.
+    - [x] SSH - Deactivate X11 forwarding  (`X11Forwarding no`)
+    - [x] SSH - Deactivate SFTP. Might conflict with Ansible.
     - [x] SSH - Deactivate Password authentication
     - [ ] SSH - Activate port/socket forwarding 
 - [ ] Désactiver le mode execution dans /tmp

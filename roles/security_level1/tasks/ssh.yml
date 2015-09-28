@@ -8,7 +8,9 @@
   with_items:
     - { regexp: "^PasswordAuthentication", line: "PasswordAuthentication no" }
     - { regexp: "^PermitRootLogin", line: "PermitRootLogin no" }
+    - { regexp: "^X11Forwarding", line: "X11Forwarding no" }
     - { regexp: "^Port", line: "Port {{ security_ssh_port }}" }
+    - { regexp: "^Subsystem	sftp", line: "#Subsystem sftp 	/usr/libexec/openssh/sftp-server"}
   notify: restart ssh
 
 - name: Add configured user accounts to passwordless sudoers.
@@ -21,12 +23,3 @@
   with_items: security_sudoers_passwordless
   when: security_sudoers_passwordless
 
-- name: Add configured user accounts to passworded sudoers.
-  lineinfile: >
-    dest=/etc/sudoers
-    regexp='^{{ item }}'
-    line='{{ item }} ALL=(ALL)'
-    state=present
-    validate='visudo -cf %s'
-  with_items: security_sudoers_passworded
-  when: security_sudoers_passworded
