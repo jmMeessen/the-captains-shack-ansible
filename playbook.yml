@@ -19,11 +19,11 @@
   - name: Install or update firewalld
     yum: pkg=firewalld state=latest
 
-#  - name: Add open new deported ssh port
-#    firewalld: port=10022/tcp zone=public permanent=true state=enabled
-#
-#  - name: Reload firewall rules
-#    shell: firewall-cmd --reload
+  - name: Add open new deported ssh port
+    firewalld: port={{ security_ssh_port }}/tcp zone=public permanent=true state=enabled
+
+  - name: Reload firewall rules
+    shell: firewall-cmd --reload
 
   - name: ensure ntpd is at the latest version
     yum: pkg=ntp state=latest

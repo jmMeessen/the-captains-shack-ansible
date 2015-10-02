@@ -8,10 +8,6 @@
         password="$6$rounds=100000$DotqIzX010bHLjJL$Q0UtYwxBQkCWtYZsx6XKUYKOTIE3jbjMkMrIQf2IXbmsBFpnyUyorsdCTZpRl4uRUWG6D6VJo5BKLxgpJA3GV."
     with_items: adminUsers
 
-#  - name: Pre-expire passwords
-#    shell: sudo chage -d 0 "{{ item }}"
-#    with_items: adminUsers
-
   - name : update authorized keys
     authorized_key: user="{{ item }}"
                     key="{{ lookup('file', 'public_keys/' + item) }}"

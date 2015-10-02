@@ -1,0 +1,38 @@
+= Bootstrapping
+
+Bootstrapping is the process of setting up a basic server configuration from a bare installation. What is done here
+is based on several assumptions: 
+
+* the target OS is Centos 7
+* the client OS is Mac OSX. This is the workstation I use for doing all my manipulations.
+* vagrant/Virtualbox is used to validate the different cookbooks
+* 
+
+Install Ansible
+
+** `sudo easy_install pip`
+** `sudo pip install ansible --quiet`
+** (`sudo pip install ansible --upgrade` to upgrade Ansible)
+* 
+
+setup the ansible host list so that the servers can be found when executing Ansible commands.
+
+
+[source,bash]
+./etc/ansible/hosts
+----
+[kimsufi]
+ 91.121.164.117:10022
+
+[vagrant]
+ localhost:2222`
+----
+
+
+== Configuration of the test environment
+
+* Install a blank vagrant Centos box. You should use the supplied vagrantfile. Important: to represent correctly a blank system
+the SSH part of the vagrantfile should be commented out. And commented back when the bootstrap has been executed. This is due to
+the change of the deported ssh port.
+
+-
