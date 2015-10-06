@@ -10,6 +10,10 @@ The configuration is done with Ansible.
     - configure SSH
         - PasswordAuthentication no
         - PermitRootLogin no
+        - X11Forwarding no
+        - AllowTcpForwarding yes
         - set the SSH port
-        - add users (password behavior)
+        - disable SFTP (requires `scp_if_ssh=True` in the Ansible configuration
+    - add users (password behavior)
+    - install, enable and configure the firewall (only SSH and IPV6 DHCP client allowed)
     - enable auto update of security patches

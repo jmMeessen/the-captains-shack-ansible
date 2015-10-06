@@ -12,15 +12,16 @@
 - [x] setup SSH access for dito
 - [x] Assign new users to sudo group
 - [x] Set the time to Central European Time
-- [ ] reconfigure SSH/SSHD by creating a SSHD configuration file
-    - [x] Configure deported SSH port (`Port 10022`)
+- [x] reconfigure SSH/SSHD by creating a SSHD configuration file
+    - [-] Configure deported SSH port (`Port 10022`)
     - [x] SSH - Deactivate Root access (`PermitRootLogin no`)
     - [x] SSH - Deactivate X11 forwarding  (`X11Forwarding no`)
     - [x] SSH - Deactivate SFTP. Might conflict with Ansible.
     - [x] SSH - Deactivate Password authentication
-    - [ ] SSH - Activate port/socket forwarding 
+    - [x] SSH - Activate port/socket forwarding 
 - [ ] Désactiver le mode execution dans /tmp
 - [ ] Install DOCKER
+- [ ] Install GIT
 
 The first step will be to activate two factor authentication for regular user and public key auth for the ansible (vagrant) account
 The next step will be to enable openVPN. It will require a two step installation.
