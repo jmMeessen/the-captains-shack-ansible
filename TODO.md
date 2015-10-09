@@ -23,6 +23,9 @@
 - [ ] Install DOCKER
 - [ ] Install GIT
 
+
+- [ ] fix this bug "-bash: warning: setlocale: LC_CTYPE: cannot change locale (UTF-8): No such file or directory"
+
 The first step will be to activate two factor authentication for regular user and public key auth for the ansible (vagrant) account
 The next step will be to enable openVPN. It will require a two step installation.
 
@@ -54,7 +57,6 @@ Note: All setup steps or milestone should be testable (BATS)
 
 - [ ] install latest Virtualbox
 - [ ] install latest Vagrant
-- [ ] install latest Docker
 
 
 
