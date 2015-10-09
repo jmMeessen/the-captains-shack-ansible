@@ -1,0 +1,65 @@
+= How to make it work
+
+== Initial assumptions
+
+* Run from an OSX mac
+* Initial test with Vagrant
+
+== Environment setup
+
+* install Virtual Box and Vagrant
+* create test image (see vagrant file)
+* Install Ansible
+** `sudo easy_install pip`
+** `sudo pip install ansible --quiet`
+** (`sudo pip install ansible --upgrade` to upgrade Ansible)
+* Setup an inventory file. Note that it assumes that the vagrant ssh port is mapped to the localhost 2222 port.
+
+[source,bash]
+./etc/ansible/hosts
+----
+[kimsufi]
+ 91.121.164.117:10022
+
+[vagrant]
+ localhost:2222`
+----
+
+* ansible cfg
+
+== Bootstrapping systems
+
+The bootstrap performs the initial customisation of a "raw" server.
+The systems are assumed to be Centos 7.1
+
+* create administrative users
+* perform basic hardening tasks
+** install fail2ban and ensure that it is running when the server is rebooted
+** configure SSH (PasswordAuthentication no, PermitRootLogin no, X11Forwarding no, AllowTcpForwarding yes, set the SSH port,
+   disable SFTP). Note that disabling SFTP requires `scp_if_ssh=True` in the Ansible configuration.
+** add users to sudo group (password behavior)
+** install, enable and configure the firewall (only SSH and IPV6 DHCP client allowed)
+** enable auto update of security patches
+* install the docker daemon
+
+=== Bootstrap configuration
+
+The main configuration is to specify the names of the administrators and users that can run docker.
+
+=== Bootstrap the Vagrant test system
+
+* Just start the vagrant file with `vagrant up`.
+If it is the first time it is executed, the `bootstrap.yml` playbook is automatically executed.
+* To re-execute the playbook the Vagrant way, use `vagrant provision`.
+* To re-execute the playbook the Ansible way, use `ansible-playbook bootstrap.yml -u jmm --limit vagrant`
+* To come back to the initial situation, perform a `vagrant destroy`
+
+=== Bootstrap the Kimsufi system
+
+* When the server is reinitialized, a new password for root is sent by mail.
+* The server public key must be available in the `~/.ssh/known_hosts` file.
+The easiest way is to connect at least once to the server as user root and accept the public key.
+Note that if the server is re-initialised, there is a very high chance that a previous key is still in the known_hosts file.
+It should be removed before.
+* To execute the bootstrap the first time, a password must be supplied (as the keys are not deployed yet).
+This is done with the following command `ansible-playbook bootstrap.yml -u root --ask-pass -c ssh --limit kimsufi`

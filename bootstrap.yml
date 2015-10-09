@@ -13,20 +13,9 @@
 
   roles:
      - security_level1
+     - docker
 
   tasks:
-
-  - name: Install or update firewalld
-    yum: pkg=firewalld state=latest
-
-  - name: Start and enable firewalld
-    service: name=firewalld state=started enabled=yes
-
-  - name: Add open defined ssh port
-    firewalld: port={{ security_ssh_port }}/tcp zone=public permanent=true state=enabled
-
-  - name: Reload firewall rules
-    shell: firewall-cmd --reload
 
   - name: ensure ntpd is at the latest version
     yum: pkg=ntp state=latest

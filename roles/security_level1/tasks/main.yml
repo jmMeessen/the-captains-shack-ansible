@@ -25,3 +25,5 @@
 
 - include: autoupdate-Debian.yml
   when: ansible_os_family == 'Debian' and security_autoupdate_enabled
+
+- include: firewall.yml

@@ -11,7 +11,7 @@ Vagrant.configure(2) do |config|
   #config.vm.network :public_network
 
   config.vm.provision "ansible" do |ansible|
-    ansible.playbook = "playbook.yml"
+    ansible.playbook = "bootstrap.yml"
   end
 
 end

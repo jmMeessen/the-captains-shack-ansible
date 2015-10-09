@@ -1,0 +1,36 @@
+- name: Include OS-specific variables.
+  include_vars: "docker_vars.yml"
+
+# === Remove this when Ansible is upgraded to 1.9.4 (it doesn't work)
+#  - name: Update the complete system
+#    yum: name=*
+#         state=latest
+#         update_cache=yes
+
+- name: configure docker yum repository
+  copy: src=docker.repo
+        dest=/etc/yum.repos.d/
+        owner=root group=root mode=0644
+
+- name: install docker
+  yum: name=docker-engine
+       state=present
+
+- name: install docker SElinux policies (requiered for Centos)
+  yum: name=docker-selinux
+       state=present
+
+- name: start docker daemon
+  service: name=docker
+           state=started
+           enabled=yes
+
+- name: create a docker user group
+  group: name=docker
+         state=present
+
+- name: add listed users to the docker group
+  user: name="{{ item }}"
+        groups=docker
+        append=yes
+  with_items: dockerUsers
