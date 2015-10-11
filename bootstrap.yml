@@ -21,6 +21,7 @@
   roles:
      - security_level1
      - docker
+     - git
 
   tasks:
 
