@@ -1,11 +1,10 @@
 - name: Include OS-specific variables.
   include_vars: "docker_vars.yml"
 
-# === Remove this when Ansible is upgraded to 1.9.4 (it doesn't work)
-#  - name: Update the complete system
-#    yum: name=*
-#         state=latest
-#         update_cache=yes
+- name: Update the complete system
+  yum: name=*
+       state=latest
+       update_cache=yes
 
 - name: configure docker yum repository
   copy: src=docker.repo

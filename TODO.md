@@ -19,9 +19,9 @@
     - [x] SSH - Deactivate SFTP. Might conflict with Ansible.
     - [x] SSH - Deactivate Password authentication
     - [x] SSH - Activate port/socket forwarding 
-- [ ] Désactiver le mode execution dans /tmp
-- [ ] Install DOCKER
-- [ ] Install GIT
+- [x] Désactiver le mode execution dans /tmp
+- [x] Install DOCKER
+- [x] Install GIT
 
 
 - [ ] fix this bug "-bash: warning: setlocale: LC_CTYPE: cannot change locale (UTF-8): No such file or directory"
