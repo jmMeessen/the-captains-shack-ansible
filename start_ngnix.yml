@@ -8,8 +8,11 @@
   - name: Add open https port
     firewalld: service=https zone=public permanent=true state=enabled
 
-#  - name: Reload firewall rules
-#    shell: firewall-cmd --reload
+  - name: Create directory to store NGINX configuration
+    file: path=/var/nginx/conf state=directory
+
+  - name: Create directory to store static web server pages
+    file: path=/var/www state=directory
 
   - name: Start NGINX Docker container
     docker:
@@ -17,3 +20,7 @@
       image: nginx:latest
       state: reloaded
       ports: 80:80, 443:443
+      volumes:
+      - /var/www:/usr/share/nginx/html:ro
+
+#      - /var/nginx/conf:/etc/nginx:ro
