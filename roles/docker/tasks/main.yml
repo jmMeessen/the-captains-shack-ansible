@@ -4,7 +4,15 @@
 - name: Update the complete system
   yum: name=*
        state=latest
-       update_cache=yes
+
+- name: Install python setup tools
+  yum: name=python-setuptools
+
+- name: Install Pypi
+  easy_install: name=pip
+
+- name: Install docker-py
+  pip: name=docker-py
 
 - name: configure docker yum repository
   copy: src=docker.repo

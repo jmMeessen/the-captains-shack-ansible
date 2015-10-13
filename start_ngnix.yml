@@ -1,0 +1,19 @@
+---
+- hosts: all
+  sudo: yes
+
+  tasks:
+  - name: Add open http port
+    firewalld: service=http zone=public permanent=true state=enabled
+  - name: Add open https port
+    firewalld: service=https zone=public permanent=true state=enabled
+
+#  - name: Reload firewall rules
+#    shell: firewall-cmd --reload
+
+  - name: Start NGINX Docker container
+    docker:
+      name: nginx
+      image: nginx:latest
+      state: reloaded
+      ports: 80:80, 443:443

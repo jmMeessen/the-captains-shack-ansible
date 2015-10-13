@@ -24,14 +24,21 @@
 - [x] Install GIT
 
 
-- [ ] fix this bug "-bash: warning: setlocale: LC_CTYPE: cannot change locale (UTF-8): No such file or directory"
+- [x] fix this bug "-bash: warning: setlocale: LC_CTYPE: cannot change locale (UTF-8): No such file or directory"
 
 The first step will be to activate two factor authentication for regular user and public key auth for the ansible (vagrant) account
 The next step will be to enable openVPN. It will require a two step installation.
 
 Note: All setup steps or milestone should be testable (BATS)
 
-## Sprint 1b
+## Sprint 2
+
+**Objectives**: basic web presence
+
+- [ ] Install and run NGNIX with a basic welcome page.
+- [ ] Install and run a Static Site generator
+
+## Sprint ??
 
 **Objectives**: further improve the security
 
@@ -40,15 +47,15 @@ Note: All setup steps or milestone should be testable (BATS)
 - [ ] enable OpenVPN
 - [ ] if user already exist, don't reset the password
 
-## Sprint 2
+## Sprint ??
 
 **Objective**: Push the automated setup to bare server
 
-## Sprint 3
+## Sprint ??
 
 **Objective**: Experiment with SELINUX and evaluate feasability
 
-## Sprint 4
+## Sprint ??
 
 - push simple docker containers
 - etc.
