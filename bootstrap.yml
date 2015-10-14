@@ -22,6 +22,7 @@
      - security_level1
      - docker
      - git
+     - nginx
 
   tasks:
 
