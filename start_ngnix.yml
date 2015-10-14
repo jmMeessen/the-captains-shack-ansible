@@ -8,11 +8,34 @@
   - name: Add open https port
     firewalld: service=https zone=public permanent=true state=enabled
 
+
+
   - name: Create directory to store NGINX configuration
-    file: path=/var/nginx/conf state=directory
+    file: path=/var/nginx/conf/conf.d state=directory
+
+  - name: Copy default configuration files
+    copy: src=files/{{ item }} dest=/var/nginx/conf/{{ item }}
+    with_items:
+      - fastcgi_params
+      - koi-utf
+      - koi-win
+      - mime.types
+      - nginx.conf
+      - scgi_params
+      - uwsgi_params
+      - win-utf
+
+  - copy: src=files/default.conf dest=/var/nginx/conf/conf.d/
+
+
 
   - name: Create directory to store static web server pages
     file: path=/var/www state=directory
+
+  - name: Copy default start page
+    copy: src=files/index.html dest=/var/www/
+
+
 
   - name: Start NGINX Docker container
     docker:
@@ -22,5 +45,4 @@
       ports: 80:80, 443:443
       volumes:
       - /var/www:/usr/share/nginx/html:ro
-
-#      - /var/nginx/conf:/etc/nginx:ro
+      - /var/nginx/conf:/etc/nginx:ro
