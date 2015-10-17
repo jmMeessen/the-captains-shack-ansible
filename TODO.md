@@ -9,8 +9,8 @@ Note: All setup steps or milestone should be testable (BATS)
 
 - [ ] Install and run NGNIX with a basic welcome page.
     - [x] install container
-    - [ ] configure data volumes
-    - [ ] design and install basic pages (index & 404)
+    - [x] configure data volumes
+    - [x] design and install basic pages (index & 404)
     - [ ] enable persistent log storage.
 
 

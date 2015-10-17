@@ -30,7 +30,12 @@
   file: path=/var/www state=directory
 
 - name: Copy default start page
-  copy: src=index.html dest=/var/www/
+  copy: src={{ item }} dest=/var/www/{{ item }}
+  with_items:
+    - index.html
+    - 404.html
+    - 404.jpg
+    - lew_kilborn_shack.jpg
 
 
 
