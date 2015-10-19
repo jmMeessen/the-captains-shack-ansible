@@ -7,11 +7,11 @@ Note: All setup steps or milestone should be testable (BATS)
 
 **Objectives**: basic web presence
 
-- [ ] Install and run NGNIX with a basic welcome page.
+- [x] Install and run NGNIX with a basic welcome page.
     - [x] install container
     - [x] configure data volumes
     - [x] design and install basic pages (index & 404)
-    - [ ] enable persistent log storage.
+    - [x] enable persistent log storage.
 
 
 ## Sprint ??
@@ -27,6 +27,7 @@ Note: All setup steps or milestone should be testable (BATS)
 
 - [ ] install and configure AIDE
     - [ ] enable AIDE reporting via mail
+- [ ] improve log storage, consolidation and treatment
 - [ ] enable OpenVPN
 - [ ] if user already exist, don't reset the password
 
