@@ -34,6 +34,7 @@
   with_items:
     - index.html
     - 404.html
+    - 50x.html
     - 404.jpg
     - lew_kilborn_shack.jpg
 
