@@ -1,14 +1,14 @@
 ---
 
-- name: Add open http port
+- name: Add http port to firewall open ports
   firewalld: service=http zone=public permanent=true state=enabled
-- name: Add open https port
+- name: Add https to firewall open ports
   firewalld: service=https zone=public permanent=true state=enabled
 
 
 
 - name: Create directory to store NGINX configuration
-  file: path=/var/nginx/conf/conf.d state=directory
+  file: path=/var/nginx/conf/conf.d state=directory owner=root group=root
 
 - name: Copy default configuration files
   copy: src={{ item }} dest=/var/nginx/conf/{{ item }}
@@ -24,7 +24,13 @@
 
 - copy: src=default.conf dest=/var/nginx/conf/conf.d/
 
+- name: Create directory to store NGINX ssl keys
+  file: path=/var/nginx/conf/ssl state=directory owner=root group=root
 
+- name: create self-signed SSL cert
+  command: openssl req -new -nodes -x509 -subj "/CN=www.the-captains-shack.com" -days 3650
+           -keyout /var/nginx/conf/ssl/server.key -out /var/nginx/conf/ssl/server.crt
+           -extensions v3_ca creates=/var/nginx/conf/ssl/server.crt
 
 - name: Create directory to store static web server pages
   file: path=/var/www state=directory

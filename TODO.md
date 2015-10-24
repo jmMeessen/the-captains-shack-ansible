@@ -25,6 +25,9 @@ Note: All setup steps or milestone should be testable (BATS)
 
 ## ideas
 - google analytics ?
+- write NGNIX access log to a file
+- use GOaccess to parse and analyse the access logs
+- what happens when the server reboots, the docker containers must be restarted ?
 
 
 

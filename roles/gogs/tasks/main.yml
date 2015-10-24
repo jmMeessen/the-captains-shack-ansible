@@ -1,0 +1,21 @@
+---
+
+- name: Add gogs special ssh port to firewall open ports
+  firewalld: port=10022/tcp zone=public permanent=true state=enabled
+
+- name: Add gogs http port to firewall open ports
+  firewalld: port=10080/tcp zone=public permanent=true state=enabled
+
+- name: Create directory to store GOGS data and configuration
+  file: path=/var/gogs state=directory  owner=root group=root
+
+#/var/gogs/gogs/conf
+
+- name: Start GOGS Docker container
+  docker:
+    name: gogs
+    image: gogs/gogs:latest
+    state: reloaded
+    ports: 10022:22, 10080:3000
+    volumes:
+    - /var/gogs:/data

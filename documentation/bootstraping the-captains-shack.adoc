@@ -10,10 +10,35 @@ is based on several assumptions:
 
 Install Ansible
 
-** `sudo easy_install pip`
-** `sudo pip install ansible --quiet`
-** (`sudo pip install ansible --upgrade` to upgrade Ansible)
-* 
+* `sudo easy_install pip`
+* `sudo pip install ansible --quiet`
+* (`sudo pip install ansible --upgrade` to upgrade Ansible)
+
+As I use some special features only available in Ansible v2, this is how to run Ansible from sources:
+
+[source,bash]
+----
+$ git clone git://github.com/ansible/ansible.git --recursive
+$ cd ./ansible
+----
+
+To update the version,
+
+[source,bash]
+----
+$ git pull --rebase
+$ git submodule update --init --recursive
+----
+
+To initiate the environment,
+
+[source,bash]
+----
+$ source ./hacking/env-setup
+----
+
+
+
 
 setup the ansible host list so that the servers can be found when executing Ansible commands.
 
