@@ -28,9 +28,10 @@
   file: path=/var/nginx/conf/ssl state=directory owner=root group=root
 
 - name: create self-signed SSL cert
-  command: openssl req -new -nodes -x509 -subj "/CN=www.the-captains-shack.com" -days 3650
-           -keyout /var/nginx/conf/ssl/server.key -out /var/nginx/conf/ssl/server.crt
-           -extensions v3_ca creates=/var/nginx/conf/ssl/server.crt
+  command: openssl req -nodes -newkey rsa:2048 -x509 -subj "/CN=www.the-captains-shack.com" -days 3650
+           -keyout /var/nginx/conf/ssl/www.the-captains-shack.com.key -out /var/nginx/conf/ssl/www.the-captains-shack.com.crt
+           -extensions v3_ca
+           creates=/var/nginx/conf/ssl/www.the-captains-shack.com.crt
 
 - name: Create directory to store static web server pages
   file: path=/var/www state=directory
