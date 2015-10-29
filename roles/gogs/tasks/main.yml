@@ -10,12 +10,20 @@
   file: path=/var/gogs state=directory  owner=root group=root
 
 #/var/gogs/gogs/conf
+- name: create self-signed SSL cert
+  command: openssl req -nodes -newkey rsa:2048 -x509 -subj "/CN=git.the-captains-shack.com" -days 3650
+           -keyout /var/nginx/conf/ssl/git.the-captains-shack.com.key -out /var/nginx/conf/ssl/git.the-captains-shack.com.crt
+           -extensions v3_ca
+           creates=/var/nginx/conf/ssl/git.the-captains-shack.com.crt
 
-- name: Start GOGS Docker container
-  docker:
-    name: gogs
-    image: gogs/gogs:latest
-    state: reloaded
-    ports: 10022:22, 10080:3000
-    volumes:
-    - /var/gogs:/data
+- name: copy the nginx proxy configuration
+  copy: src=gogs_proxy.conf dest=/var/nginx/conf/sites-enabled/
+
+#- name: Start GOGS Docker container
+#  docker:
+#    name: gogs
+#    image: gogs/gogs:latest
+#    state: reloaded
+#    ports: 10022:22, 10080:3000
+#    volumes:
+#    - /var/gogs:/data

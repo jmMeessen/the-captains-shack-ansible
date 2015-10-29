@@ -27,6 +27,9 @@
 - name: Create directory to store NGINX ssl keys
   file: path=/var/nginx/conf/ssl state=directory owner=root group=root
 
+- name: Create directory to store NGINX enabled sites
+  file: path=/var/nginx/conf/sites-enabled state=directory owner=root group=root
+
 - name: create self-signed SSL cert
   command: openssl req -nodes -newkey rsa:2048 -x509 -subj "/CN=www.the-captains-shack.com" -days 3650
            -keyout /var/nginx/conf/ssl/www.the-captains-shack.com.key -out /var/nginx/conf/ssl/www.the-captains-shack.com.crt
@@ -47,12 +50,12 @@
 
 
 
-- name: Start NGINX Docker container
-  docker:
-    name: nginx
-    image: nginx:latest
-    state: reloaded
-    ports: 80:80, 443:443
-    volumes:
-    - /var/www:/usr/share/nginx/html:ro
-    - /var/nginx/conf:/etc/nginx:ro
+#- name: Start NGINX Docker container
+#  docker:
+#    name: nginx
+#    image: nginx:latest
+#    state: reloaded
+#    ports: 80:80, 443:443
+#    volumes:
+#    - /var/www:/usr/share/nginx/html:ro
+#    - /var/nginx/conf:/etc/nginx:ro

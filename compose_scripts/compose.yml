@@ -1,0 +1,19 @@
+web:
+  name: nginx
+  image: nginx:latest
+  ports:
+   - "80:80"
+   - "443:443"
+  volumes:
+   - /var/www:/usr/share/nginx/html:ro
+   - /var/nginx/conf:/etc/nginx:ro
+  links:
+   - gogs
+
+gogs:
+    image: gogs/gogs:latest
+    ports:
+     - "10022:22"
+     - "10080:3000"
+    volumes:
+    - /var/gogs:/data

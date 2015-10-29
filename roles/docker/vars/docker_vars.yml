@@ -2,3 +2,5 @@
 dockerUsers:
   - jmm
   - dadou
+
+docker_compose_version:

@@ -23,13 +23,23 @@
      - docker
      - git
      - nginx
+     - gogs
 
   tasks:
-
   - name: ensure ntpd is at the latest version
     yum: pkg=ntp state=latest
     notify:
     - restart ntpd
+
+  - name: copy docker_compose file
+    copy: src=compose_scripts/compose.yml
+          dest=/var/docker/docker-compose.yml
+          force=yes
+
+
+  - name: start docker compose
+    shell: docker-compose up -d chdir=/var/docker
+
 
   handlers:
     - name: restart ntpd
