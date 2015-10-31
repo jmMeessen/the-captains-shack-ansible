@@ -43,8 +43,13 @@
   copy: src={{ item }} dest=/var/www/{{ item }}
   with_items:
     - index.html
+    - 404.css
     - 404.html
-    - 50x.html
+    - 500.html
+    - 501.html
+    - 502.html
+    - 503.html
+    - 504.html
     - 404.jpg
     - lew_kilborn_shack.jpg
 
