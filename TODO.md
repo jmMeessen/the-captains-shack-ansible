@@ -6,12 +6,21 @@ Note: All setup steps or milestone should be testable (BATS)
 ## Sprint 3
 
 **Objectives**: Source Management
-- [ ] Enable GOGS
+- [x] Enable GOGS
+- [ ] Force GOGS on https
+- [ ] Enable mail notifications on GOGS (and the server)
+- [x] Improve 404/50x messages 
+- [x] SSL-isation des url externes
+- [x] intégration des certificats letsencrypt,
+   - [ ] documenter cette intégration
+- [ ] "traitement" des logs nginx (use GOaccess to parse and analyse the access logs)
+- [ ] backup/restore automatisé de Gogs
+- [ ] what happens when the server reboots, the docker containers must be restarted ?
 
 ## Sprint ??
 
 **Objectives**: Improve web presence
-- [ ] enable HTTPS
+- [ ] enable/force HTTPS
 - [ ] Install and run a Static Site generator (hugo)
 
 
@@ -25,9 +34,6 @@ Note: All setup steps or milestone should be testable (BATS)
 
 ## ideas
 - google analytics ?
-- write NGNIX access log to a file
-- use GOaccess to parse and analyse the access logs
-- what happens when the server reboots, the docker containers must be restarted ?
 
 
 
