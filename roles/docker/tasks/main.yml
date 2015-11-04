@@ -1,9 +1,9 @@
 - name: Include OS-specific variables.
   include_vars: "docker_vars.yml"
 
-- name: Update the complete system
-  yum: name=*
-       state=latest
+#- name: Update the complete system
+#  yum: name=*
+#       state=latest
 
 - name: Install python setup tools
   yum: name=python-setuptools
