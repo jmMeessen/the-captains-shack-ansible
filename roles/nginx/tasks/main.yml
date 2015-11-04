@@ -33,6 +33,9 @@
 - name: Create directory to store NGINX enabled sites
   file: path=/var/nginx/conf/sites-enabled state=directory owner=root group=root
 
+- name: copy default site configuration
+  copy: src=main.conf dest=/var/nginx/conf/sites-enabled/
+
 - name: create self-signed SSL cert
   command: openssl req -nodes -newkey rsa:2048 -x509 -subj "/CN=www.the-captains-shack.com" -days 3650
            -keyout /var/nginx/conf/ssl/www.the-captains-shack.com/privkey.pem
