@@ -1,9 +1,13 @@
 - name: Include OS-specific variables.
   include_vars: "docker_vars.yml"
 
-#- name: Update the complete system
-#  yum: name=*
-#       state=latest
+- name: install docker SElinux policies (requiered for Centos)
+  yum: name=docker-selinux
+       state=absent
+
+- name: Update the complete system
+  yum: name=*
+       state=latest
 
 - name: Install python setup tools
   yum: name=python-setuptools
@@ -21,10 +25,6 @@
 
 - name: install docker
   yum: name=docker-engine
-       state=present
-
-- name: install docker SElinux policies (requiered for Centos)
-  yum: name=docker-selinux
        state=present
 
 - name: start docker daemon
