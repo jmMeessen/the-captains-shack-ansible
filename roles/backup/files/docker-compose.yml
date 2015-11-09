@@ -1,0 +1,10 @@
+backup_gogs:
+        image: docker-s3cmd:latest
+        #build: ./docker-s3cmd/
+        volumes:
+          - /var/gogs/:/opt/src/
+          - /etc/:/opt/ro_etc/:ro
+        env_file:
+          - S3backup_keys.env
+          - backupGogs.env
+

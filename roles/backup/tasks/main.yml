@@ -1,0 +1,21 @@
+---
+
+- name: Create directory to store NGINX configuration
+  file: path=/var/backup/docker-s3cmd/files state=directory owner=root group=root
+
+- name: Copy default configuration files
+  copy: src={{ item }} dest=/var/backup/{{ item }}
+  with_items:
+    - backupGogs.env
+    - docker-compose.yml
+    - docker-s3cmd/Dockerfile
+    - docker-s3cmd/files/main.sh
+    - docker-s3cmd/files/s3cfg
+
+- name: Load keys
+  include_vars: "S3backup_keys.yml"
+
+- name: Copy S3backup keys
+  copy:
+    content: "{{ key_data }}"
+    dest: /var/backup/S3backup_keys.env
