@@ -19,3 +19,12 @@
   copy:
     content: "{{ key_data }}"
     dest: /var/backup/S3backup_keys.env
+
+- name: build the container
+  shell: docker build -t docker-s3cmd:latest /var/backup/docker-s3cmd/
+
+#- name: check or build the docker-s3cmd:latest container
+#    docker_image:
+#      path="/var/backup/docker-s3cmd"
+#      name="docker-s3cmd:latest"
+#      state=build
