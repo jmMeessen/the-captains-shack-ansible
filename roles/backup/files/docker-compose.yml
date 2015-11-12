@@ -1,5 +1,4 @@
 backup_gogs:
-        #image: docker-s3cmd:latest
         build: ./docker-s3cmd/
         volumes:
           - /var/gogs/:/opt/src/
@@ -8,9 +7,9 @@ backup_gogs:
           - backup_target_dir=/gogs/
         env_file:
           - S3backup_keys.env
+          - backup.env
 
 backup_letsencrypt:
-        #image: docker-s3cmd:latest
         build: ./docker-s3cmd/
         volumes:
           - /etc/letsencrypt/:/opt/src/
