@@ -3,26 +3,22 @@
 
 Note: All setup steps or milestone should be testable (BATS)
 
-## Sprint 3
+## Now
 
 **Objectives**: Source Management
 - [ ] backup/restore automatisé de Gogs
 - [x] intégration des certificats letsencrypt,
    - [ ] documenter cette intégration
    - [ ] faire un playbook pour l'update des certificats
-- [ ] mettre en ordre le yum update (à exécuter uniquement lors de l'installation initiale)
+- [ ] mettre en ordre le yum update (=> fixer la version à installer)
 - [ ] Enable mail notifications on GOGS (and the server)
 - [ ] "traitement" des logs nginx (use GOaccess to parse and analyse the access logs)
 - [ ] what happens when the server reboots, the docker containers must be restarted ?
-- [x] Enable GOGS
-- [x] Force GOGS on https
-- [x] Improve 404/50x messages 
-- [x] SSL-isation des url externes
+- [ ] reorganiser le layout dir => /data au lieu de /var
 
-## Sprint ??
+## Later
 
 **Objectives**: Improve web presence
-- [x] enable/force HTTPS
 - [ ] Install and run a Static Site generator (hugo)
 
 
@@ -34,7 +30,7 @@ Note: All setup steps or milestone should be testable (BATS)
 - [ ] enable OpenVPN
 - [ ] if user already exist, don't reset the password
 
-## ideas
+## One day....
 - google analytics ?
 
 
