@@ -9,21 +9,21 @@
 - name: Create directory to store GOGS data and configuration
   file: path=/var/gogs state=directory  owner=root group=root
 
+- name: Create directory to store ssl keys for git.the-captains-shack.com
+  file: path=/var/nginx/conf/ssl/git.the-captains-shack.com state=directory owner=root group=root
+
 #/var/gogs/gogs/conf
 - name: create self-signed SSL cert
   command: openssl req -nodes -newkey rsa:2048 -x509 -subj "/CN=git.the-captains-shack.com" -days 3650
-           -keyout /var/nginx/conf/ssl/git.the-captains-shack.com.key -out /var/nginx/conf/ssl/git.the-captains-shack.com.crt
+           -keyout /var/nginx/conf/ssl/git.the-captains-shack.com/privkey.pem
+           -out /var/nginx/conf/ssl/git.the-captains-shack.com/cert.crt
            -extensions v3_ca
-           creates=/var/nginx/conf/ssl/git.the-captains-shack.com.crt
+           creates=/var/nginx/conf/ssl/git.the-captains-shack.com/cert.crt
+
+- name: copy the generated certificate as fullchain.pem
+  command: cp /var/nginx/conf/ssl/git.the-captains-shack.com/cert.crt /var/nginx/conf/ssl/git.the-captains-shack.com/fullchain.pem
+           creates="/var/nginx/conf/ssl/git.the-captains-shack.com/fullchain.pem"
 
 - name: copy the nginx proxy configuration
   copy: src=gogs_proxy.conf dest=/var/nginx/conf/sites-enabled/
 
-#- name: Start GOGS Docker container
-#  docker:
-#    name: gogs
-#    image: gogs/gogs:latest
-#    state: reloaded
-#    ports: 10022:22, 10080:3000
-#    volumes:
-#    - /var/gogs:/data

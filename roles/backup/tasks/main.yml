@@ -8,13 +8,13 @@
   with_items:
     - backup.env
     - docker-compose.yml
-    - backup.sh
+    - restore.sh
     - docker-s3cmd/Dockerfile
     - docker-s3cmd/files/main.sh
     - docker-s3cmd/files/s3cfg
 
 - name: make backup.sh executable
-  file: path=/var/backup/backup.sh
+  file: path=/var/backup/restore.sh
         mode="a+rx"
 
 - name: Load keys

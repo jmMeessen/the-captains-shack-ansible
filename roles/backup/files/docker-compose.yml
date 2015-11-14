@@ -9,15 +9,6 @@ backup_gogs:
           - S3backup_keys.env
           - backup.env
 
-backup_letsencrypt:
-        build: ./docker-s3cmd/
-        volumes:
-          - /etc/letsencrypt/:/opt/src/
-          - /etc/:/opt/ro_etc/:ro
-        environment:
-          - backup_target_dir=/letsencrypt/
-        env_file:
-          - S3backup_keys.env
-          - backup.env
+
 
 

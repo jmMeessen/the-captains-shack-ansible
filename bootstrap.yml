@@ -26,8 +26,6 @@
      - gogs
 
   tasks:
-  - name: set the hostname
-    hostname: name={{ hostname }}
 
   - name: ensure ntpd is at the latest version
     yum: pkg=ntp state=latest

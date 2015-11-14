@@ -6,7 +6,7 @@ Note: All setup steps or milestone should be testable (BATS)
 ## Now
 
 **Objectives**: Source Management
-- [ ] backup/restore automatisé de Gogs
+- [ ] tester le restore
 - [x] intégration des certificats letsencrypt,
    - [ ] documenter cette intégration
    - [ ] faire un playbook pour l'update des certificats
@@ -15,6 +15,7 @@ Note: All setup steps or milestone should be testable (BATS)
 - [ ] "traitement" des logs nginx (use GOaccess to parse and analyse the access logs)
 - [ ] what happens when the server reboots, the docker containers must be restarted ?
 - [ ] reorganiser le layout dir => /data au lieu de /var
+- [ ] check whether the auto security update works
 
 ## Later
 
