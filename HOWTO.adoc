@@ -61,5 +61,7 @@ If it is the first time it is executed, the `bootstrap.yml` playbook is automati
 The easiest way is to connect at least once to the server as user root and accept the public key.
 Note that if the server is re-initialised, there is a very high chance that a previous key is still in the known_hosts file.
 It should be removed before.
+To remove it `ssh-keygen -R 91.121.164.117` or `ssh-keygen -R the-captains-shack.com`.
+To add the key automatically use `ssh-keyscan -t rsa,dsa the-captains-shack.com >> ~/.ssh/known_hosts`.
 * To execute the bootstrap the first time, a password must be supplied (as the keys are not deployed yet).
 This is done with the following command `ansible-playbook bootstrap.yml -u root --ask-pass -c ssh --limit kimsufi`
