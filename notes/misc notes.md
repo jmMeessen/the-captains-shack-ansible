@@ -1,3 +1,5 @@
+# Some miscellanous notes
+
 ## vagrant shared directory error.
 
 When starting the Centos7 box, I had the following error
@@ -21,3 +23,7 @@ This was solved by issuing the following command that forces the (re)installatio
 ## installing Ansible on Mac OSX
 
 [Install instruction](https://devopsu.com/guides/ansible-mac-osx.html)
+
+## configuring the yum-cron
+ - change to security and apply security patches
+ - `sed -ie 's/apply_updates = no/apply_updates = yes/' /etc/yum/yum-cron.conf`

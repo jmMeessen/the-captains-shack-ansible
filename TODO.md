@@ -17,9 +17,10 @@ Note: All setup steps or milestone should be testable (BATS)
    - [ ] comment se fait la mise à jour du client
 - [ ] mettre en ordre le yum update (=> fixer la version à installer)
 - [ ] Enable mail notifications on GOGS (and the server)
+- [ ] Enable the mail notification for the yum-cron
 - [ ] "traitement" des logs nginx (use GOaccess to parse and analyse the access logs)
 - [ ] what happens when the server reboots, the docker containers must be restarted ?
-- [ ] check whether the auto security update works
+- [x] check whether the auto security update works
 
 ## Later
 
