@@ -8,10 +8,10 @@
 
 
 - name: Create directory to store NGINX configuration
-  file: path=/var/nginx/conf/conf.d state=directory owner=root group=root
+  file: path={{ work_dir }}/nginx/conf/conf.d state=directory owner=root group=root
 
 - name: Copy default configuration files
-  copy: src={{ item }} dest=/var/nginx/conf/{{ item }}
+  copy: src={{ item }} dest={{ work_dir }}/nginx/conf/{{ item }}
   with_items:
     - fastcgi_params
     - koi-utf
@@ -22,36 +22,36 @@
     - uwsgi_params
     - win-utf
 
-- copy: src=default.conf dest=/var/nginx/conf/conf.d/
+- copy: src=default.conf dest={{ work_dir }}/nginx/conf/conf.d/
 
 - name: Create directory to store NGINX ssl keys
-  file: path=/var/nginx/conf/ssl state=directory owner=root group=root
+  file: path={{ work_dir }}/nginx/conf/ssl state=directory owner=root group=root
 
 - name: Create directory to store ssl keys for www.the-captains-shack.com
-  file: path=/var/nginx/conf/ssl/www.the-captains-shack.com state=directory owner=root group=root
+  file: path={{ work_dir }}/nginx/conf/ssl/www.the-captains-shack.com state=directory owner=root group=root
 
 - name: Create directory to store NGINX enabled sites
-  file: path=/var/nginx/conf/sites-enabled state=directory owner=root group=root
+  file: path={{ work_dir }}/nginx/conf/sites-enabled state=directory owner=root group=root
 
 - name: copy default site configuration
-  copy: src=main.conf dest=/var/nginx/conf/sites-enabled/
+  copy: src=main.conf dest={{ work_dir }}/nginx/conf/sites-enabled/
 
 - name: create self-signed SSL cert
   command: openssl req -nodes -newkey rsa:2048 -x509 -subj "/CN=www.the-captains-shack.com" -days 3650
-           -keyout /var/nginx/conf/ssl/www.the-captains-shack.com/privkey.pem
-           -out /var/nginx/conf/ssl/www.the-captains-shack.com/cert.crt
+           -keyout {{ work_dir }}/nginx/conf/ssl/www.the-captains-shack.com/privkey.pem
+           -out {{ work_dir }}/nginx/conf/ssl/www.the-captains-shack.com/cert.crt
            -extensions v3_ca
-           creates=/var/nginx/conf/ssl/www.the-captains-shack.com/cert.crt
+           creates={{ work_dir }}/nginx/conf/ssl/www.the-captains-shack.com/cert.crt
 
 - name: copy the generated certificate as fullchain.pem
-  command: cp /var/nginx/conf/ssl/www.the-captains-shack.com/cert.crt /var/nginx/conf/ssl/www.the-captains-shack.com/fullchain.pem
-           creates="/var/nginx/conf/ssl/www.the-captains-shack.com/fullchain.pem"
+  command: cp {{ work_dir }}/nginx/conf/ssl/www.the-captains-shack.com/cert.crt {{ work_dir }}/nginx/conf/ssl/www.the-captains-shack.com/fullchain.pem
+           creates="{{ work_dir }}/nginx/conf/ssl/www.the-captains-shack.com/fullchain.pem"
 
 - name: Create directory to store static web server pages
-  file: path=/var/www state=directory
+  file: path={{ work_dir }}/www state=directory
 
 - name: Copy default start page
-  copy: src={{ item }} dest=/var/www/{{ item }}
+  copy: src={{ item }} dest={{ work_dir }}/www/{{ item }}
   with_items:
     - index.html
     - 404.css
@@ -65,7 +65,7 @@
     - lew_kilborn_shack.jpg
 
 - name: Copy Favicon related images
-  copy: src=favicons/{{ item }} dest=/var/www/{{ item }}
+  copy: src=favicons/{{ item }} dest={{ work_dir }}/www/{{ item }}
   with_items:
     - android-chrome-36x36.png
     - android-chrome-48x48.png

@@ -1,5 +1,6 @@
 security_ssh_port: 22
 security_autoupdate_enabled: true
+work_dir: /data
 adminUsers:
   - jmm
   - dadou
