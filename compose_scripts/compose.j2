@@ -4,8 +4,8 @@ web:
    - "80:80"
    - "443:443"
   volumes:
-   - /data/www:/usr/share/nginx/html:ro
-   - /data/nginx/conf:/etc/nginx:ro
+   - {{ work_dir }}/www:/usr/share/nginx/html:ro
+   - {{ work_dir }}/nginx/conf:/etc/nginx:ro
   links:
    - gogs
 
@@ -15,4 +15,4 @@ gogs:
      - "10022:22"
      - "10080:3000"
     volumes:
-    - /data/gogs:/data
+    - {{ work_dir }}/gogs:/data

@@ -7,23 +7,23 @@
   firewalld: port=10080/tcp zone=public permanent=true state=enabled
 
 - name: Create directory to store GOGS data and configuration
-  file: path=/var/gogs state=directory  owner=root group=root
+  file: path={{ work_dir }}/gogs state=directory  owner=root group=root
 
 - name: Create directory to store ssl keys for git.the-captains-shack.com
-  file: path=/var/nginx/conf/ssl/git.the-captains-shack.com state=directory owner=root group=root
+  file: path={{ work_dir }}/nginx/conf/ssl/git.the-captains-shack.com state=directory owner=root group=root
 
 #/var/gogs/gogs/conf
 - name: create self-signed SSL cert
   command: openssl req -nodes -newkey rsa:2048 -x509 -subj "/CN=git.the-captains-shack.com" -days 3650
-           -keyout /var/nginx/conf/ssl/git.the-captains-shack.com/privkey.pem
-           -out /var/nginx/conf/ssl/git.the-captains-shack.com/cert.crt
+           -keyout {{ work_dir }}/nginx/conf/ssl/git.the-captains-shack.com/privkey.pem
+           -out {{ work_dir }}/nginx/conf/ssl/git.the-captains-shack.com/cert.crt
            -extensions v3_ca
-           creates=/var/nginx/conf/ssl/git.the-captains-shack.com/cert.crt
+           creates={{ work_dir }}/nginx/conf/ssl/git.the-captains-shack.com/cert.crt
 
 - name: copy the generated certificate as fullchain.pem
-  command: cp /var/nginx/conf/ssl/git.the-captains-shack.com/cert.crt /var/nginx/conf/ssl/git.the-captains-shack.com/fullchain.pem
-           creates="/var/nginx/conf/ssl/git.the-captains-shack.com/fullchain.pem"
+  command: cp {{ work_dir }}/nginx/conf/ssl/git.the-captains-shack.com/cert.crt {{ work_dir }}/nginx/conf/ssl/git.the-captains-shack.com/fullchain.pem
+           creates="{{ work_dir }}/nginx/conf/ssl/git.the-captains-shack.com/fullchain.pem"
 
 - name: copy the nginx proxy configuration
-  copy: src=gogs_proxy.conf dest=/var/nginx/conf/sites-enabled/
+  copy: src=gogs_proxy.conf dest={{ work_dir }}/nginx/conf/sites-enabled/
 

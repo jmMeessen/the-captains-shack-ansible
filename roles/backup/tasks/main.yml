@@ -7,7 +7,7 @@
   copy: src={{ item }} dest=/var/backup/{{ item }}
   with_items:
     - backup.env
-    - docker-compose.yml
+    - docker-compose.j2
     - restore.sh
     - docker-s3cmd/Dockerfile
     - docker-s3cmd/files/main.sh

@@ -55,4 +55,4 @@
       mode: "0755"
 
 - name: Directory to store the docker-compose config
-  file: path=/var/docker state=directory owner=root group=root
+  file: path={{ work_dir }}/docker state=directory owner=root group=root
