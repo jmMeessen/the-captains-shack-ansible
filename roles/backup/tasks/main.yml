@@ -1,20 +1,24 @@
 ---
 
 - name: Create directory to the backup related files
-  file: path=/var/backup/docker-s3cmd/files state=directory owner=root group=root
+  file: path={{ work_dir }}/backup/docker-s3cmd/files state=directory owner=root group=root
 
 - name: Copy default configuration files
-  copy: src={{ item }} dest=/var/backup/{{ item }}
+  copy: src={{ item }} dest={{ work_dir }}/backup/{{ item }}
   with_items:
     - backup.env
-    - docker-compose.j2
     - restore.sh
     - docker-s3cmd/Dockerfile
     - docker-s3cmd/files/main.sh
     - docker-s3cmd/files/s3cfg
 
+- name: Update Compose template and copy
+  template: src=docker-compose.j2
+            dest={{ work_dir }}/backup/docker-compose.yml
+            force=yes
+
 - name: make backup.sh executable
-  file: path=/var/backup/restore.sh
+  file: path={{ work_dir }}/backup/restore.sh
         mode="a+rx"
 
 - name: Load keys
@@ -23,5 +27,5 @@
 - name: Copy S3backup keys
   copy:
     content: "{{ key_data }}"
-    dest: /var/backup/S3backup_keys.env
+    dest: "{{ work_dir }}/backup/S3backup_keys.env"
 

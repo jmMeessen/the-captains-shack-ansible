@@ -27,6 +27,7 @@
      - git
      - nginx
      - gogs
+     - backup
 
   tasks:
 

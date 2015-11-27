@@ -1,7 +1,7 @@
 backup_gogs:
         build: ./docker-s3cmd/
         volumes:
-          - /var/gogs/:/opt/src/
+          - {{ work_dir }}/gogs/:/opt/src/
           - /etc/:/opt/ro_etc/:ro
         environment:
           - backup_target_dir=/gogs/
