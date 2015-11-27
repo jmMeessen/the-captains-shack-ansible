@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+# move to the docker directory
+cd {{ work_dir }}/docker
+
+# stop compose
+docker-compose stop
+
+# request main certificate
+docker run -it --rm -p 443:443 -p 80:80 --name letsencrypt \
+-v "/etc/letsencrypt:/etc/letsencrypt" \
+-v "/var/lib/letsencrypt:/var/lib/letsencrypt" \
+quay.io/letsencrypt/letsencrypt:latest --agree-dev-preview --server \
+https://acme-v01.api.letsencrypt.org/directory auth -m jean-marc@meessen-web.org \
+-d www.the-captains-shack.com
+
+# request gogs certificate
+docker run -it --rm -p 443:443 -p 80:80 --name letsencrypt \
+-v "/etc/letsencrypt:/etc/letsencrypt" \
+-v "/var/lib/letsencrypt:/var/lib/letsencrypt" \
+quay.io/letsencrypt/letsencrypt:latest --agree-dev-preview --server \
+https://acme-v01.api.letsencrypt.org/directory auth -m jean-marc@meessen-web.org \
+-d git.the-captains-shack.com
+
+
+# COPY certificates
+cp -R -L -v /etc/letsencrypt/live/* {{ work_dir }}/nginx/conf/ssl/
+
+# restart services
+docker-compose up -d

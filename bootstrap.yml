@@ -28,6 +28,7 @@
      - nginx
      - gogs
      - backup
+     - letsencrypt
 
   tasks:
 

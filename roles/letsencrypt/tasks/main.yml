@@ -1,0 +1,10 @@
+---
+
+- name: Update letsencrypt bash and copy
+  template: src=request_certificates.j2
+            dest={{ work_dir }}/docker/request_certificates.sh
+            force=yes
+
+- name: make script executable
+  file: path={{ work_dir }}/docker/request_certificates.sh
+        mode="a+rx"
