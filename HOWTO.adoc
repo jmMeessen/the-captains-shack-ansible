@@ -64,4 +64,9 @@ It should be removed before.
 To remove it `ssh-keygen -R 91.121.164.117` or `ssh-keygen -R the-captains-shack.com`.
 To add the key automatically use `ssh-keyscan -t rsa,dsa the-captains-shack.com >> ~/.ssh/known_hosts`.
 * To execute the bootstrap the first time, a password must be supplied (as the keys are not deployed yet).
-This is done with the following command `ansible-playbook bootstrap.yml -u root --ask-pass -c ssh --limit kimsufi`
+This is done with the following command
+`ansible-playbook bootstrap.yml -u root --ask-pass -c ssh --limit kimsufi --ask-vault`
+* To request production certificates, connect to the server, sudo as root with `sudo su`, move to
+the `\data\docker\` directory and execute `./request_certificates.sh`.
+* restore the gogs backup with `/data/backup/restore.sh`. Don't forget to restart the web system so that the restored
+configuration is picked up.

@@ -59,3 +59,9 @@
 
 - name: Directory to store the docker-compose config
   file: path={{ work_dir }}/docker state=directory owner=root group=root
+
+- name: Update restart_web bash and copy
+  template: src=restart_web.j2
+            dest={{ work_dir }}/docker/restart_web.sh
+            mode="a+rx"
+            force=yes

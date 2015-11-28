@@ -7,7 +7,6 @@
   copy: src={{ item }} dest={{ work_dir }}/backup/{{ item }}
   with_items:
     - backup.env
-    - restore.sh
     - docker-s3cmd/Dockerfile
     - docker-s3cmd/files/main.sh
     - docker-s3cmd/files/s3cfg
@@ -17,9 +16,11 @@
             dest={{ work_dir }}/backup/docker-compose.yml
             force=yes
 
-- name: make backup.sh executable
-  file: path={{ work_dir }}/backup/restore.sh
-        mode="a+rx"
+- name: Update restore command template and copy
+  template: src=restore.j2
+            dest={{ work_dir }}/backup/restore.sh
+            mode="a+rx"
+            force=yes
 
 - name: Load keys
   include_vars: "S3backup_keys.yml"

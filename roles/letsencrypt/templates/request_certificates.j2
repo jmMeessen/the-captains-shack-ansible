@@ -24,7 +24,7 @@ https://acme-v01.api.letsencrypt.org/directory auth -m jean-marc@meessen-web.org
 
 
 # COPY certificates
-cp -R -L -v /etc/letsencrypt/live/* {{ work_dir }}/nginx/conf/ssl/
+sudo cp -R -L -v /etc/letsencrypt/live/* {{ work_dir }}/nginx/conf/ssl/
 
 # restart services
 docker-compose up -d

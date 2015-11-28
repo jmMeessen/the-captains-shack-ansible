@@ -12,7 +12,7 @@ Note: All setup steps or milestone should be testable (BATS)
    - [ ] documenter l'intégration de letsencrypt
 - [x] tester le restore
 - [x] intégration des certificats letsencrypt,
-   - [ ] faire un playbook pour l'update des certificats
+   - [x] faire un playbook pour l'update des certificats
    - [ ] comment se fait la mise à jour du client
 - [x] mettre en ordre le yum update (=> fixer la version à installer)
 - [ ] Enable mail notifications on GOGS (and the server)
