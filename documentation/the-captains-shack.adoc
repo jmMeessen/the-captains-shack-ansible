@@ -1,0 +1,14 @@
+= The Captain's shack =
+
+This document describes the functionality supported by this automated installation.
+
+Note: all the customisations and installation are done in the `/data/` directory.
+
+. based on a centos 7 installation, configure level 1 security (see related document for further details)
+. make **docker-engine** and **docker-compose** available as well a GIT client.
+. an NGINX container to serve the `/data/www` directory and as a reverse-proxy.
+. a GOGS container (GIT server)
+. production certificates provided by "Let's Encrypt"
+. automated backup to Amazon S3 using S3CMD (in a container)
+
+

@@ -57,16 +57,9 @@ If it is the first time it is executed, the `bootstrap.yml` playbook is automati
 === Bootstrap the Kimsufi system
 
 * When the server is reinitialized, a new password for root is sent by mail.
-* The server public key must be available in the `~/.ssh/known_hosts` file.
-The easiest way is to connect at least once to the server as user root and accept the public key.
-Note that if the server is re-initialised, there is a very high chance that a previous key is still in the known_hosts file.
-It should be removed before.
-To remove it `ssh-keygen -R 91.121.164.117` or `ssh-keygen -R the-captains-shack.com`.
-To add the key automatically use `ssh-keyscan -t rsa,dsa the-captains-shack.com >> ~/.ssh/known_hosts`.
-* To execute the bootstrap the first time, a password must be supplied (as the keys are not deployed yet).
-This is done with the following command
-`ansible-playbook bootstrap.yml -u root --ask-pass -c ssh --limit kimsufi --ask-vault`
+* The server is bootstrapped with `kimsufi_bootstrap.sh`. The script will ask the new root password and the ansible-vault
+password.
+* Connect to the server with ssh, and restore the gogs backup and the ssh keys with `/data/backup/restore.sh`. It should
+ be run as root.
 * To request production certificates, connect to the server, sudo as root with `sudo su`, move to
 the `\data\docker\` directory and execute `./request_certificates.sh`.
-* restore the gogs backup with `/data/backup/restore.sh`. Don't forget to restart the web system so that the restored
-configuration is picked up.
