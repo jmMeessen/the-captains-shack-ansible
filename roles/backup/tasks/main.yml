@@ -16,9 +16,15 @@
             dest={{ work_dir }}/backup/docker-compose.yml
             force=yes
 
-- name: Update restore command template and copy
+- name: Update the "restore" command template and copy
   template: src=restore.j2
             dest={{ work_dir }}/backup/restore.sh
+            mode="a+rx"
+            force=yes
+
+- name: Update the "backup" command template and copy
+  template: src=backup.j2
+            dest={{ work_dir }}/backup/backup.sh
             mode="a+rx"
             force=yes
 
@@ -29,4 +35,10 @@
   copy:
     content: "{{ key_data }}"
     dest: "{{ work_dir }}/backup/S3backup_keys.env"
+
+- name: setup the cronjob
+  cron: name="GOGS Backup"
+        hour="23"
+        minute="30"
+        job="{{ work_dir }}/backup/backup.sh"
 

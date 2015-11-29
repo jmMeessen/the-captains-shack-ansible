@@ -42,11 +42,15 @@
               dest={{ work_dir }}/docker/docker-compose.yml
               force=yes
 
+  - name: Stop the main docker-compose in case it is already runnin
+    shell: docker-compose stop chdir={{ work_dir }}/docker
+
   - name: restart the docker service as we might have changed the firewall settings
     service: name=docker state=restarted
 
-  - name: start docker compose
+  - name: start the main docker-compose
     shell: docker-compose up -d chdir={{ work_dir }}/docker
+
 
 
   handlers:
