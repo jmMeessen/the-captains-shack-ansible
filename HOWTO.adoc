@@ -60,6 +60,6 @@ If it is the first time it is executed, the `bootstrap.yml` playbook is automati
 * The server is bootstrapped with `kimsufi_bootstrap.sh`. The script will ask the new root password and the ansible-vault
 password.
 * Connect to the server with ssh, and restore the gogs backup and the ssh keys with `/data/backup/restore.sh`. It should
- be run as root.
+ be run as root. Ownership of the files must be changed with `chown -R root:root gogs`
 * To request production certificates, connect to the server, sudo as root with `sudo su`, move to
 the `\data\docker\` directory and execute `./request_certificates.sh`.
