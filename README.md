@@ -16,6 +16,7 @@ To read what it does, you can refer to the Captain's Shack [functionality list](
 Refer to the [HOWTO](HOWTO.adoc) to figure out how to bootstrap the server. The `bootstrap.yml` is the entry point of the Ansible
 provisioning system.
 
-Refer to the [re-initialize the captain's shack](init_the-captains-shack.md) for a quick checklist rebuild the system from the default kimsufi server.
+Refer to the [re-initialize checklist](init_the-captains-shack.md) for a quick rebuild of the Captain's Shack from 
+a blank kimsufi server.
 
 To see the work still ahead, have a look to the [TODO](TODO.md) file.
