@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+cd {{ work_dir }}/backup
+
 docker build -t jmm/docker_s3cmd:latest docker-s3cmd/
 
 . ./S3backup_keys.env

@@ -3,6 +3,6 @@ dockerUsers:
   - jmm
   - dadou
 
-docker_engine_version: docker-engine-0:1.9.1
+docker_engine_version: docker-engine-0:1.10.2
 
 docker_compose_version:

@@ -1,6 +1,7 @@
 ---
 - hosts: all
-  sudo: yes
+  become: yes
+  become_method: sudo
   vars_files:
     - vars/main.yml
 
