@@ -6,7 +6,7 @@
         state=present
         groups=wheel
         password="$6$rounds=100000$DotqIzX010bHLjJL$Q0UtYwxBQkCWtYZsx6XKUYKOTIE3jbjMkMrIQf2IXbmsBFpnyUyorsdCTZpRl4uRUWG6D6VJo5BKLxgpJA3GV."
-    with_items: adminUsers
+    with_items: "{{adminUsers}}"
 
   - name : update authorized keys
     authorized_key: user="{{ item }}"
@@ -14,6 +14,6 @@
                     state=present
                     manage_dir=yes
                     exclusive=yes
-    with_items: adminUsers
+    with_items: "{{adminUsers}}"
 
 # To generate password :python -c "from passlib.hash import sha512_crypt; import getpass; print sha512_crypt.encrypt(getpass.getpass())"

@@ -5,6 +5,8 @@ Note: All setup steps or milestone should be testable (BATS)
 
 ## Now
 
+- [ ] configure the supported ciphers for SSH
+
 **Objectives**: Source Management
 - [ ] Enable mail notifications on GOGS (and the server)
 - [ ] Enable the mail notification for the yum-cron

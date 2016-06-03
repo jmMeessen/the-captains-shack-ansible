@@ -22,7 +22,7 @@
     line='{{ item }} ALL=(ALL) NOPASSWD: ALL'
     state=present
     validate='visudo -cf %s'
-  with_items: security_sudoers_passwordless
+  with_items: "{{security_sudoers_passwordless}}"
   when: security_sudoers_passwordless
 
 - name: Add configured user accounts to passworded sudoers.
@@ -32,5 +32,5 @@
     line='{{ item }} ALL=(ALL)'
     state=present
     validate='visudo -cf %s'
-  with_items: security_sudoers_passworded
+  with_items: "{{security_sudoers_passworded}}"
   when: security_sudoers_passworded
