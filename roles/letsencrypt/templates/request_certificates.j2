@@ -10,17 +10,17 @@ docker-compose stop
 docker run -it --rm -p 443:443 -p 80:80 --name letsencrypt \
 -v "/etc/letsencrypt:/etc/letsencrypt" \
 -v "/var/lib/letsencrypt:/var/lib/letsencrypt" \
-quay.io/letsencrypt/letsencrypt:latest --agree-dev-preview --server \
-https://acme-v01.api.letsencrypt.org/directory auth -m jean-marc@meessen-web.org \
--d www.the-captains-shack.com
+quay.io/letsencrypt/letsencrypt:latest certonly --standalone --text --agree-tos --server \
+https://acme-v01.api.letsencrypt.org/directory  --rsa-key-size 4096 --verbose -m jean-marc@meessen-web.org \
+--renew-by-default --standalone-supported-challenges http-01 -d www.the-captains-shack.com
 
 # request gogs certificate
 docker run -it --rm -p 443:443 -p 80:80 --name letsencrypt \
 -v "/etc/letsencrypt:/etc/letsencrypt" \
 -v "/var/lib/letsencrypt:/var/lib/letsencrypt" \
-quay.io/letsencrypt/letsencrypt:latest --agree-dev-preview --server \
-https://acme-v01.api.letsencrypt.org/directory auth -m jean-marc@meessen-web.org \
--d git.the-captains-shack.com
+quay.io/letsencrypt/letsencrypt:latest certonly --standalone --text --agree-tos --server \
+https://acme-v01.api.letsencrypt.org/directory  --rsa-key-size 4096 --verbose -m jean-marc@meessen-web.org \
+--renew-by-default --standalone-supported-challenges http-01 -d git.the-captains-shack.com
 
 
 # COPY certificates
