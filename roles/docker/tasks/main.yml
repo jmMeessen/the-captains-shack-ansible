@@ -23,9 +23,6 @@
         dest=/etc/yum.repos.d/
         owner=root group=root mode=0644
 
-#- name: install the dependencies for docker
-#  shell: yum-builddep {{ docker_engine_version }}* -y
-
 - name: install docker
   yum: name={{ docker_engine_version }}*
        state=present

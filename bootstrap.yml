@@ -30,6 +30,7 @@
      - gogs
      - backup
      - letsencrypt
+     - openvpn
 
   tasks:
 

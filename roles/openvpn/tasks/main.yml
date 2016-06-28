@@ -1,0 +1,11 @@
+---
+
+- name: Create directory to the OpenVPN related files
+  file: path={{ work_dir }}/openVPN state=directory owner=root group=root
+
+- name: Copy the OpenVPN  startup script
+  copy: src={{ item }} dest={{ work_dir }}/openVPN/{{ item }} mode="a+rx"
+  with_items:
+    - startOpenVPN.sh
+    - initializeOpenVPN.sh
+    - exportOpenVPNsettings.sh
