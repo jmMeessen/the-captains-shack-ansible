@@ -1,18 +1,26 @@
-web:
-  image: nginx:latest
-  ports:
-   - "80:80"
-   - "443:443"
-  volumes:
-   - {{ work_dir }}/www:/usr/share/nginx/html:ro
-   - {{ work_dir }}/nginx/conf:/etc/nginx:ro
-  links:
-   - gogs
+version: '2'
 
-gogs:
-    image: gogs/gogs:latest
+services:
+  web:
+    image: nginx:latest
     ports:
-     - "10022:22"
-     - "10080:3000"
+     - "80:80"
+     - "443:443"
     volumes:
-    - {{ work_dir }}/gogs:/data
+     - /data/www:/usr/share/nginx/html:ro
+     - /data/nginx/conf:/etc/nginx:ro
+     - logVolume:/var/log/nginx/
+    links:
+     - gogs
+
+  gogs:
+      image: gogs/gogs:latest
+      ports:
+       - "10022:22"
+       - "10080:3000"
+      volumes:
+      - /data/gogs:/data
+
+volumes:
+  logVolume:
+    external: true
