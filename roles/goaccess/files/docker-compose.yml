@@ -1,0 +1,12 @@
+version: '2'
+
+services:
+  main:
+    build: ./docker/
+    volumes:
+     - logVolume:/var/log/nginx
+    entrypoint: goaccess -f /var/log/nginx/main-access.log
+
+volumes:
+  logVolume:
+    external: true

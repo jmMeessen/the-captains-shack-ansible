@@ -1,0 +1,24 @@
+FROM alpine:3.4
+
+#Inspired by a dockerfile from Alexey Diyan <alexey.diyan@gmail.com>
+MAINTAINER Jean-Marc MEESSEN <jean-marc@meessen-web.org>
+
+#Pinned releas: Alpine and go access
+
+RUN set -x \
+  && buildDeps='go build-base geoip-dev ncurses-dev' \
+  && apk add --update geoip ncurses $buildDeps \
+  && wget -O /tmp/goaccess.tar.gz http://tar.goaccess.io/goaccess-1.0.1.tar.gz \
+  && tar -xzvf /tmp/goaccess.tar.gz -C /tmp \
+  && cd /tmp/goaccess-1.0.1 \
+  && ./configure --enable-geoip --enable-utf8 \
+  && make \
+  && make install \
+  && apk del $buildDeps \
+  && rm -rf /var/cache/apk/* /tmp/goaccess*
+
+ADD goaccess.conf /usr/local/etc/goaccess.conf
+
+ENTRYPOINT ["goaccess"]
+
+#RUN apk add --update bash && rm -rf /var/cache/apk/*

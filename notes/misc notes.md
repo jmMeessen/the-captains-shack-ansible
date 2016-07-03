@@ -27,3 +27,33 @@ This was solved by issuing the following command that forces the (re)installatio
 ## configuring the yum-cron
  - change to security and apply security patches
  - `sed -ie 's/apply_updates = no/apply_updates = yes/' /etc/yum/yum-cron.conf`
+ 
+## Configuration of GOACCESS
+
+`docker run --rm -it -v logVolume:/var/log/nginx joelchen/goaccess`
+
+`docker run --rm -it -v logVolume:/var/log/nginx jmm/goaccess goaccess -f /var/log/nginx/access2.log` 
+
+docker file
+
+````
+FROM joelchen/goaccess
+
+ADD goaccess.conf /usr/local/etc/goaccess.conf
+````
+
+goaccess.conf
+
+````
+time_format %H:%M:%S
+date_format %d/%b/%Y
+log_format %v:%h - %^ [%d:%t %^] "%r" %s %b "%R" "%u" %^
+````
+
+##OpenVPN
+
+docker volume create --name ovpn-data
+xzcat openvpn-backup.tar.xz | docker run --rm  -v ovpn-data:/etc/openvpn -i busybox tar -xvf - -C /etc
+
+xzcat openvpn-backup.tar.xz | docker run --rm -v ovpn-data:/etc/openvpn -i busybox tar -xvf - -C /etc
+

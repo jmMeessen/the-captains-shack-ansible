@@ -1,0 +1,16 @@
+---
+
+- name: Create directory to the goAccess related files
+  file: path={{ work_dir }}/goaccess/docker state=directory owner=root group=root
+
+- name: Copy files
+  copy: src={{ item }} dest={{ work_dir }}/goaccess/{{ item }}
+  with_items:
+    - goaccess.sh
+    - docker-compose.yml
+    - docker/dockerfile
+    - docker/goaccess.conf
+
+- name: make goAccess script executable
+  file: path={{ work_dir }}/goaccess/goaccess.sh
+        mode="a+rx"
