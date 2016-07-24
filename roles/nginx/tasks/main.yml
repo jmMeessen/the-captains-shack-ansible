@@ -87,3 +87,7 @@
     - mstile-310x150.png
     - mstile-70x70.png
     - safari-pinned-tab.svg
+
+- name: Create the data volume to store the logfiles
+  command: docker volume create --name logVolume
+

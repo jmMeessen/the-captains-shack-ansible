@@ -9,4 +9,9 @@
 ##Requesting new certificates
 - [ ] Connect to the server, sudo as root with `sudo su`, move to the `\data\docker\` directory and execute `./request_certificates.sh`.
 
+##Restart the openVPN
+- [ ] Transfer a copy of the VPN setting (ex: `scp openvpn-backup.tar.xz jmm@the-captains-shack.com:openvpn-backup.tar.xz`
+- [ ] On the server execute, `/data/openVPN/restoreOpenVPNsettings.sh`
+- [ ] Start the OpenVPN service with `/data/openVPN/startOpenVPN.sh`
+
 Note: it might be necessary to install `sshpass`. On OSX use de command `brew install https://raw.githubusercontent.com/kadwanev/bigboybrew/master/Library/Formula/sshpass.rb`

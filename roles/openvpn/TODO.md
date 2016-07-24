@@ -2,7 +2,7 @@
 
 * [x] creation script
 * [x] Startup script
-* [ ] Export configuration
+* [x] Export configuration
 * [ ] Restore configuration
     * retrieve backup
     * create import data 
