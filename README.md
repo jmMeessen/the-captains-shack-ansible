@@ -13,7 +13,7 @@ _Picture from [Lewis Kilborn, the last resident of Grape Island](https://ipswich
 
 To read what it does, you can refer to the Captain's Shack [functionality list](documentation/the-captains-shack_functionalities.adoc)
 
-I keep logs of my explorations [here](captains-logs/overview.md)
+I keep logs of my explorations [here](captains-logs/overview.md).
 
 Refer to the [HOWTO](documentation/HOWTO.adoc) to figure out how to bootstrap the server. The `configure-shack.yml` is the entry point of the Ansible
 provisioning system.

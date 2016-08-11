@@ -1,0 +1,33 @@
+= the Captain's log for Jenkins explorations
+
+== Objectives of the journey:
+
+* understand what is under the hood of Jenkins and how to install idempotent working configurations with Ansible.
+* Experiment with the new functionality of Jenkins V2 as I can't try/use them at work.
+* Explore and improve my understanding of using Docker in a complete Continuous Integration/Delivery pipeline.
+
+== First steps (Aug 2016)
+
+* Create a separate sub-domain (ci.the-captains-shack.com) and serve it with the nginx used as a reverse proxy
+** Create the sub-domaine via the OVH DNS management console.
+   The type is `CNAME`. Do not forget the '.' after the domain name.
+   I should investigate the syntax and the various options offered.
+** create the `ci_proxy.conf` to be placed in the `/data/nginx/conf/sites-enabled` directory. I have two server entries: one that listens to port 80 (that redirects automatically to 443) and the main one for the SSL (443) port. The main forwarding is based on https://wiki.jenkins-ci.org/display/JENKINS/Jenkins+behind+an+NGinX+reverse+proxy[this jenkins documentation].
+** Change the `request_certificates.sh`script to add a section for requesting the LetsEncrypt certificate for the subdomain. Running the whole file will either renew the existing certificate or request a new one if it doesn't exist yet.
+** Adapt the docker-compose file to include the start of the standard jenkins docker image. I used the sample docker-compose of this https://github.com/dduportal/voxxed-lu-2016[voxxed-lu demo].
+** Validate: use http and https to connect to the Jenkins server.
+
+* Implement access control (using GitHub OAuth)
+** this method, using the [GitHub Authentication Plugin](https://wiki.jenkins-ci.org/display/JENKINS/GitHub+OAuth+Plugin), allows to use GitHub authentication to authorize access to Jenkins.
+** The plugin installed interactively works. It requires several operation that will need to be automated: install the plugin, configure the (secret) ID keys generated on Github, configure the jenkins global settings)
+** Installing the plugin requires to create a custom docker image that we can configure.
+** The plugin (and dependencies) can be installed by executing the `install-plugins.sh` script available in the base image.
+** At first it didn't work. The plugin (and dependencies) didn't show in the User Interface. I searched a long time for the problem. A very long time.
+   I found the problem (grumbl, grumbl): by cutting and pasting the volume definition from the sample app, I also copied the plugin cache system.
+   The plugins were installed correctly and then "overlayed" by the volume definition.
+** Once the plugin installation mechanism ok, it appears that, while the installer can search for the dependencies, it only downloads the version referenced in the plugin and not the latest as does the UI.
+   This is not the expected behavior and indeed I get exceptions with the recommended versions.
+   So I need to install the plugin via the UI and request the list of installed plugins. I then use this list as the list of plugins to install. Lousy.
+** The configuration of the plugin can be done via a groovy script (`enableGitHubOAuth`). The script requires to set secret GitHub keys. They should be stored in the source repo.
+   So I use the same technique as for the backup solution. The groovy script retrieves the needed values from environment variable set inside the container.
+   These values are set via an environment file loaded by the docker-compose. The problem of storing this env file in the SCM is solved by using the Ansible Vault system (encrypted file).
