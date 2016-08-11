@@ -4,10 +4,10 @@
   copy: src=ci_proxy.conf dest={{ work_dir }}/nginx/conf/sites-enabled/
 
 - name: Create directory to store the Jenkins Dockerfile
-  file: path={{ work_dir }}/docker/ci-dockerfile state=directory owner=root group=root
+  file: path={{ work_dir }}/docker/jenkins-dockerfile state=directory owner=root group=root
 
 - name: Copy the Dockerfile related data
-  copy: src={{ item }} dest={{ work_dir }}/docker/hugo-dockerfile/{{ item }}
+  copy: src={{ item }} dest={{ work_dir }}/docker/jenkins-dockerfile/{{ item }}
   with_items:
     - Dockerfile
     - enableGitHubOAuth.groovy

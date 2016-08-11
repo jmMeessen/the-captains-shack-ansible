@@ -32,6 +32,8 @@
      - letsencrypt
      - openvpn
      - goaccess
+     - hugo
+     - jenkins
 
   tasks:
 
@@ -45,14 +47,14 @@
               dest={{ work_dir }}/docker/docker-compose.yml
               force=yes
 
-  - name: Stop the main docker-compose in case it is already runnin
+  - name: Stop the main docker-compose in case it is already running
     shell: docker-compose stop chdir={{ work_dir }}/docker
 
   - name: restart the docker service as we might have changed the firewall settings
     service: name=docker state=restarted
 
   - name: start the main docker-compose
-    shell: docker-compose up -d chdir={{ work_dir }}/docker
+    shell: docker-compose up --build -d chdir={{ work_dir }}/docker
 
 
 
