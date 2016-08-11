@@ -1,4 +1,4 @@
-#Re-initialize the-captains-shack.com checklist
+#Re-initialize checklist for the-captains-shack.com 
 
 - [ ] Request a re-init of the server via the Kimsufi console. Choose `CentOS 7.2` in English.
 - [ ] Wait for the new password to be sent by mail. Copy it .

@@ -11,12 +11,14 @@ _Picture from [Lewis Kilborn, the last resident of Grape Island](https://ipswich
 
 ----
 
-To read what it does, you can refer to the Captain's Shack [functionality list](documentation/the-captains-shack.adoc)
+To read what it does, you can refer to the Captain's Shack [functionality list](documentation/the-captains-shack_functionalities.adoc)
 
-Refer to the [HOWTO](HOWTO.adoc) to figure out how to bootstrap the server. The `bootstrap.yml` is the entry point of the Ansible
+I keep logs of my explorations [here](captains-logs/overview.md)
+
+Refer to the [HOWTO](documentation/HOWTO.adoc) to figure out how to bootstrap the server. The `configure-shack.yml` is the entry point of the Ansible
 provisioning system.
 
-Refer to the [re-initialize checklist](init_the-captains-shack.md) for a quick rebuild of the Captain's Shack from 
+Refer to the [re-initialize checklist](documentation/init_the-captains-shack.md) for a quick rebuild of the Captain's Shack from 
 a blank kimsufi server.
 
 To see the work still ahead, have a look to the [TODO](TODO.md) file.

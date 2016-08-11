@@ -8,16 +8,19 @@ Note: All setup steps or milestone should be testable (BATS)
 - [ ] configure the supported ciphers for SSH
 
 **Objectives**: Source Management
+
 - [ ] Enable mail notifications on GOGS (and the server)
 - [ ] Enable the mail notification for the yum-cron
 - [ ] "traitement" des logs nginx (use GOaccess to parse and analyse the access logs)
 - [ ] what happens when the server reboots, the docker containers must be restarted ?
 
+**Objectives**: Continuous Integration
+
+- [x] Install Jenkins in an automated way
+- [ ] Improve networking segregation
+- [ ] Install Nexus
+
 ## Later
-
-**Objectives**: Improve web presence
-- [ ] Install and run a Static Site generator (hugo)
-
 
 **Objectives**: further improve the security
 
