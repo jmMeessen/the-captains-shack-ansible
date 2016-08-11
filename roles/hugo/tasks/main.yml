@@ -1,0 +1,12 @@
+---
+
+- name: Create directory to HUGO Dockerfile
+  file: path={{ work_dir }}/docker/hugo-dockerfile state=directory  owner=root group=root
+
+- name: Copy the Dockerfile related data
+  copy: src={{ item }} dest={{ work_dir }}/docker/hugo-dockerfile/{{ item }}
+  with_items:
+    - Dockerfile
+    - run.sh
+
+

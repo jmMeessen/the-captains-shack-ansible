@@ -22,6 +22,14 @@ quay.io/letsencrypt/letsencrypt:latest certonly --standalone --text --agree-tos 
 https://acme-v01.api.letsencrypt.org/directory  --rsa-key-size 4096 --verbose -m jean-marc@meessen-web.org \
 --renew-by-default --standalone-supported-challenges http-01 -d git.the-captains-shack.com
 
+# request ci certificate
+docker run -it --rm -p 443:443 -p 80:80 --name letsencrypt \
+-v "/etc/letsencrypt:/etc/letsencrypt" \
+-v "/var/lib/letsencrypt:/var/lib/letsencrypt" \
+quay.io/letsencrypt/letsencrypt:latest certonly --standalone --text --agree-tos --server \
+https://acme-v01.api.letsencrypt.org/directory  --rsa-key-size 4096 --verbose -m jean-marc@meessen-web.org \
+--renew-by-default --standalone-supported-challenges http-01 -d ci.the-captains-shack.com
+
 
 # COPY certificates
 sudo cp -R -L -v /etc/letsencrypt/live/* {{ work_dir }}/nginx/conf/ssl/

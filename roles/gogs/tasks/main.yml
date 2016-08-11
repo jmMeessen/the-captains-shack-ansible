@@ -3,8 +3,8 @@
 - name: Add gogs special ssh port to firewall open ports
   firewalld: port=10022/tcp zone=public permanent=true state=enabled
 
-- name: Add gogs http port to firewall open ports
-  firewalld: port=10080/tcp zone=public permanent=true state=enabled
+#- name: Add gogs http port to firewall open ports
+#  firewalld: port=10080/tcp zone=public permanent=true state=enabled
 
 - name: Create directory to store GOGS data and configuration
   file: path={{ work_dir }}/gogs state=directory  owner=root group=root

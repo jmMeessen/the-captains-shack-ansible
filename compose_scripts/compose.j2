@@ -7,11 +7,14 @@ services:
      - "80:80"
      - "443:443"
     volumes:
-     - /data/www:/usr/share/nginx/html:ro
-     - /data/nginx/conf:/etc/nginx:ro
+     - hugo_out:/usr/share/nginx/html:ro
+     - {{ work_dir }}/nginx/conf:/etc/nginx:ro
      - logVolume:/var/log/nginx/
     links:
      - gogs
+    depends_on:
+      - hugo
+    restart: unless-stopped
 
   gogs:
       image: gogs/gogs:latest
@@ -19,8 +22,45 @@ services:
        - "10022:22"
        - "10080:3000"
       volumes:
-      - /data/gogs:/data
+      - {{ work_dir }}/gogs:/data
+    restart: unless-stopped
+
+
+  hugo:
+    build: ./hugo-dockerfile
+    volumes:
+      - hugo_src:/src
+      - hugo_out:/output
+    environment:
+      #- HUGO_WATCH=true
+      - HUGO_REFRESH_TIME=3600
+      - HUGO_THEME=casper
+      - HUGO_BASEURL=https://www.the-captains-shack.com
+    restart: unless-stopped
+
+  jenkins:
+    build: ./jenkins-dockerfile
+    environment:
+      - JENKINS_OPTS=--httpPort=8080
+      - JENKINS_SLAVE_AGENT_PORT=50000
+      - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
+    volumes:
+      - jenkins2-data:/var/jenkins_home
+      #- /data/ci/plugins:/usr/share/jenkins/ref/plugins/
+      #- /data/ci/sshkeys:/custom-ssh-keys
+    env_file:
+      - {{ work_dir }}/ci/GitHub_OAuth_IDs.env
+    restart: unless-stopped
 
 volumes:
   logVolume:
     external: true
+
+  hugo_src:
+    driver: local
+
+  hugo_out:
+    driver: local
+
+  jenkins2-data:
+    driver: local

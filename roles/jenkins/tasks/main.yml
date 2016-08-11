@@ -1,0 +1,24 @@
+---
+
+- name: copy the nginx proxy configuration for the Jenkins sub-system
+  copy: src=ci_proxy.conf dest={{ work_dir }}/nginx/conf/sites-enabled/
+
+- name: Create directory to store the Jenkins Dockerfile
+  file: path={{ work_dir }}/docker/ci-dockerfile state=directory owner=root group=root
+
+- name: Copy the Dockerfile related data
+  copy: src={{ item }} dest={{ work_dir }}/docker/hugo-dockerfile/{{ item }}
+  with_items:
+    - Dockerfile
+    - enableGitHubOAuth.groovy
+
+- name: Create directory to store the Jenkins related data
+  file: path={{ work_dir }}/ci state=directory owner=root group=root
+
+- name: Load encrypted OAuth IDs
+  include_vars: "GitHub_OAuth_IDs.yml"
+
+- name: Copy the OAuth IDs
+  copy:
+    content: "{{ GitHub_OAuth_IDs_text }}"
+    dest: "{{ work_dir }}/ci/GitHub_OAuth_IDs.env"
