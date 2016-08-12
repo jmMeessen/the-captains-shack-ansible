@@ -58,4 +58,7 @@ I am not convinced about this: I will miss the user interface to verify and mana
 I then need to research how to activate the GitHub OAuth system.
 The alternative, as I only need, in a first stage, to store dependencies of my projects, is to use Artifactory based on the voxxed-lu example.
 
-I will first try with Nexus because this is what I know best and that it has a build in Docker repository (in the OSS version I hope)
+I will first try with Nexus because this is what I know best and that it has a build in Docker repository (in the OSS version I hope).
+
+* Create a DNS entry for the new subdomain `nexus.the-captains-shack.com` on the OVH console.
+* Create the Ansible role and setup the new proxy configuration and update the LetsEncrypt request/update script

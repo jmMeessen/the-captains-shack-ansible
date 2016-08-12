@@ -1,0 +1,4 @@
+---
+
+- name: copy the nginx proxy configuration for the nexus sub-system
+  copy: src=nexus_proxy.conf dest={{ work_dir }}/nginx/conf/sites-enabled/
