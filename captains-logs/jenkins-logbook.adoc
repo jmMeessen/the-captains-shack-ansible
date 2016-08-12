@@ -49,7 +49,13 @@ Create a separate sub-domain (ci.the-captains-shack.com) and serve it with the n
 
 {nbsp}
 
-=== Install a Nexus server
+=== Install a Java Artifact repository server
 
 I want the Nexus server to be only reachable from the Jenkins and not from the Internet.
 This will require setting up internal networks from the docker-compose (front/back)
+
+I am not convinced about this: I will miss the user interface to verify and manage the server.
+I then need to research how to activate the GitHub OAuth system.
+The alternative, as I only need, in a first stage, to store dependencies of my projects, is to use Artifactory based on the voxxed-lu example.
+
+I will first try with Nexus because this is what I know best and that it has a build in Docker repository (in the OSS version I hope)
