@@ -67,3 +67,6 @@ I will first try with Nexus because this is what I know best and that it has a b
   Connecting directly to the server via the exposed port, started the server correctly.
   Obviously it needed to initialize something that the reverse proxy couldn't do.
   After that initial connection, the nexus server could be connected via the main address.
+* Configured a data volume to persist data.
+* Changed the default admin password via the User Interface.
+* I was only able to find how to add the RUT Real but need to research how to setup the Github OAuth
