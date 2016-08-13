@@ -62,3 +62,8 @@ I will first try with Nexus because this is what I know best and that it has a b
 
 * Create a DNS entry for the new subdomain `nexus.the-captains-shack.com` on the OVH console.
 * Create the Ansible role and setup the new proxy configuration and update the LetsEncrypt request/update script
+* Adapt the docker-compose file to add the nexus server
+* First test failed with a "bad gateway" error.
+  Connecting directly to the server via the exposed port, started the server correctly.
+  Obviously it needed to initialize something that the reverse proxy couldn't do.
+  After that initial connection, the nexus server could be connected via the main address.
