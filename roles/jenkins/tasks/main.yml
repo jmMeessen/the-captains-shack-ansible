@@ -6,8 +6,8 @@
 - name: Create directory to store the Jenkins Dockerfile
   file: path={{ work_dir }}/docker/jenkins-dockerfile state=directory owner=root group=root
 
-- name: Copy the Dockerfile related data
-  copy: src={{ item }} dest={{ work_dir }}/docker/jenkins-dockerfile/{{ item }}
+- name: Copy the Jenkins Dockerfile related data
+  copy: src=jenkins/{{ item }} dest={{ work_dir }}/docker/jenkins-dockerfile/{{ item }}
   with_items:
     - Dockerfile
     - enableGitHubOAuth.groovy
@@ -22,3 +22,14 @@
   copy:
     content: "{{ GitHub_OAuth_IDs_text }}"
     dest: "{{ work_dir }}/ci/GitHub_OAuth_IDs.env"
+
+- name: Create directory to store the Jenkins agents Dockerfile
+  file: path={{ work_dir }}/docker/jenkins-agents-dockerfile state=directory owner=root group=root
+
+- name: Copy the Jenkins agent Dockerfile related data
+  copy: src=jenkins-agent/{{ item }} dest={{ work_dir }}/docker/jenkins-agents-dockerfile/{{ item }}
+  with_items:
+    - Dockerfile-build-agent
+    - entrypoint.sh
+    - settings.xml
+    - slave-definition.xml

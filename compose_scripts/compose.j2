@@ -55,6 +55,20 @@ services:
       - {{ work_dir }}/ci/GitHub_OAuth_IDs.env
     restart: unless-stopped
 
+  build-agent:
+    build:
+      context: ./jenkins-agents-dockerfile/
+      dockerfile: Dockerfile-build-agent
+#    networks:
+#      - forge
+    restart: unless-stopped
+    depends_on:
+      - jenkins
+    environment:
+      - JENKINS_URL=http://jenkins:8080
+      - NODE_NAME=build-agent
+      - NODE_LABELS=maven3 jdk8 maven3-jdk8
+
   nexus:
     image: sonatype/nexus3
     ports:
