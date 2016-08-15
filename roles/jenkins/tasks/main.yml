@@ -23,6 +23,20 @@
     content: "{{ GitHub_OAuth_IDs_text }}"
     dest: "{{ work_dir }}/ci/GitHub_OAuth_IDs.env"
 
+### Configure ssh Keygen
+
+- name: Create directory to store the Jenkins agents Dockerfile
+  file: path={{ work_dir }}/docker/ssh-keygen-dockerfile state=directory owner=root group=root
+
+- name: Copy the Jenkins agent Dockerfile related data
+  copy: src=ssh-keygen/{{ item }} dest={{ work_dir }}/docker/ssh-keygen-dockerfile/{{ item }}
+  with_items:
+    - Dockerfile
+    - generate-key.sh
+
+
+### Configure agents
+
 - name: Create directory to store the Jenkins agents Dockerfile
   file: path={{ work_dir }}/docker/jenkins-agents-dockerfile state=directory owner=root group=root
 

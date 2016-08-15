@@ -49,25 +49,17 @@ services:
       - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
     volumes:
       - jenkins2-data:/var/jenkins_home
-      #- /data/ci/plugins:/usr/share/jenkins/ref/plugins/
-      #- /data/ci/sshkeys:/custom-ssh-keys
+      - jenkins-keys:/ssh-keys
     env_file:
       - {{ work_dir }}/ci/GitHub_OAuth_IDs.env
     restart: unless-stopped
-
-  build-agent:
-    build:
-      context: ./jenkins-agents-dockerfile/
-      dockerfile: Dockerfile-build-agent
-#    networks:
-#      - forge
-    restart: unless-stopped
     depends_on:
-      - jenkins
-    environment:
-      - JENKINS_URL=http://jenkins:8080
-      - NODE_NAME=build-agent
-      - NODE_LABELS=maven3 jdk8 maven3-jdk8
+      - ssh-keygen
+
+  ssh-keygen:
+    build: ./ssh-keygen-dockerfile
+    volumes:
+      - jenkins-keys:/ssh-keys
 
   nexus:
     image: sonatype/nexus3
@@ -90,4 +82,7 @@ volumes:
     driver: local
 
   nexus-data:
+    driver: local
+
+  jenkins-keys:
     driver: local

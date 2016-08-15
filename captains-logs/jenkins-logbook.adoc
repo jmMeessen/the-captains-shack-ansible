@@ -89,10 +89,21 @@ I need to industrialize the interaction with GOGS though.
   It creates a container with the necessary tools for that agent.
   It then downloads the required jars from the master and tries to connect.
   This is where it fails with an authentication issue (anonymous is not allowed to perform the operation).
-  As I enabled OAuth, I should use the authentication method described in the plugin notes (use a github token to authenticate).
+  As I enabled OAuth, I should use the authentication method described in the plugin notes.
+  It uses a github personal access token to authenticate.
   This doesn't work. +
   These are some of the tests that I did : `java -jar ./jenkins-cli.jar -s http://jenkins:8080 --username="jmMeessen" help` (trying to login to display the help).
   After some research, it appears that this part is broken.
 * I will try an alternative method (less automatic) to setup an agent: the SSL method.
-  I plan to use the pre-packaged ssh-slave. I will have to solve the scripting of the key generation problem and the configuration of the plugin.
+  I plan to use the pre-packaged ssh-slave docker image.
+  I will have to solve the scripting of the key generation problem and the configuration of the plugin.
+
+{nbsp}
+
+* To generate the jenkins server certificate, I will use a dedicated key-generator container to provision a volume with the ssh key.
+  It is a better practice than to generate the key inside the container. +
+  This is done by the `ssh-keygen` container.
+  It uses the `jenkins-keys` volume that is then connected by the Jenkins container.
+  The `ssh-keygen` container uses a bash file to perform the operation.
+  It will generate the keys only if they are not already present.
 
