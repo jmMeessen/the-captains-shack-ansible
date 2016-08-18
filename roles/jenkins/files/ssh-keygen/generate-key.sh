@@ -8,3 +8,5 @@ then
 else
   echo "Key file already exists, skipping creation..."
 fi
+chown 1000:1000 --verbose /ssh-keys/id_rsa.pub
+chown 1000:1000 --verbose /ssh-keys/id_rsa

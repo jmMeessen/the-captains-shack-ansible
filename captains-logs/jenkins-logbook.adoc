@@ -98,12 +98,31 @@ I need to industrialize the interaction with GOGS though.
   I plan to use the pre-packaged ssh-slave docker image.
   I will have to solve the scripting of the key generation problem and the configuration of the plugin.
 
-{nbsp}
+=== Creating a jenkins slave with SSH
 
 * To generate the jenkins server certificate, I will use a dedicated key-generator container to provision a volume with the ssh key.
   It is a better practice than to generate the key inside the container. +
-  This is done by the `ssh-keygen` container.
+  This is done by the `ssh-keygen` alpine based container.
   It uses the `jenkins-keys` volume that is then connected by the Jenkins container.
   The `ssh-keygen` container uses a bash file to perform the operation.
   It will generate the keys only if they are not already present.
+* I spent quite some time to make the basic principle work.
+  In the beginning the jenkins container was not able to connect to the ssh-slave container hence the jenkins application start the agent. +
+  To debug the connection, I logged to the jenkins container (`docker-compose exec jenkins bash`) and tried to establish a connection
+  with the slave container with `ssh -v -i /ssh-keys/id_rsa jenkins@ssh-agent`. +
+  After some search, I found the issues. The first one was the ownership and access of the generated keypair.
+  The key-gen container runs with user root. The generated files are thus by default owned by root and can't be read by the user running the
+  jenkins application (jenkins). It took me a while to find the issue as the output of the ssh command was quite verbose.
+  The second issue was that I didn't pass the public key correctly to the "run" command of the ssh-slave container.
+  When using the environment variable method, it is important to specify it without quotes despite that it contains space.
+  The way to check that the key is correctly loaded in the ssh-slave is to check the `~/.ssh/authorized_keys` file. +
+  Once I got the ssh connection working at bash level, I observed that the User Interface in Jenkins to load the SSH key from an
+  other location than the default one doesn't give any error if the file was not found (made a mistake in the name) or the access
+  rights aren't correct (see above). It didn't find a way to view if it was correctly loaded and/or its value.
+  Loading the ssh key with will not be an easy task.
+* Once I have the different pieces working, I come to the conclusion that the strategy chosen will be hardly automatble.
+  The issue is to retrieve the public key from the data volume so that it can be passed as an environment or command in the
+  docker-compose. I will change the strategy and have probably the "slave SSH key" generated with Ansible before the compose file is
+  executed. It is a real pity that initial method (slave connecting to master) fails because of the OAuth bug.
+
 
