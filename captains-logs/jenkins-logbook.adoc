@@ -126,3 +126,16 @@ I need to industrialize the interaction with GOGS though.
   executed. It is a real pity that initial method (slave connecting to master) fails because of the OAuth bug.
 
 
+=== SSH Jenkins slave : "same player shoots again"
+
+* The difficulty I had was to retrieve the public key so that I could use it in the compose file.
+  To solve this the key pair must be available before the compose file is executed.
+  This can be achieved with some Ansible. I inlcuded it in the main playbook of the jenkins role.
+* The trick is to generate the key at setup. It will be re-generated at every system regeneration.
+  The key is generated in a directory of host. It is mapped as a volume of the Jenkins container with the compose.
+  It is important to set the ownership/access rights to the keys so that the user in the Jenkins container can reach it.
+* After generating the keys, a script (create-key-env.sh) is executed to create the environment file correctly formatted (slave-keys.env) so that it can be loaded in the
+  docker-compose.
+* I am back to the state where I was at the end of the first tentative.
+  Now I need to be able to load automatically the key in jenkins with some Groovy witchery.
+

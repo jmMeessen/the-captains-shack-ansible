@@ -1,0 +1,64 @@
+---
+- hosts: all
+  become: yes
+  become_method: sudo
+  vars_files:
+    - vars/main.yml
+
+  pre_tasks:
+  - name: create admin users
+    include: playbooks/createAdminUsers.yml
+
+  - name: mount Ramdisk as /tmp
+    mount: name=/tmp
+           src=tmpfs
+           fstype=tmpfs
+           opts="size=512m,nodev,nosuid,noexec"
+           state=mounted
+
+  - name: set timezone
+    file: src=/usr/share/zoneinfo/Europe/Brussels  dest=/etc/localtime state=link force=yes
+
+  - name: create the personalisation directory
+    file: path={{ work_dir }} state=directory owner=root group=root
+
+  roles:
+#     - security_level1
+#     - docker
+#     - git
+#     - nginx
+#     - gogs
+#     - backup
+#     - letsencrypt
+#     - openvpn
+#     - goaccess
+#     - hugo
+     - jenkins
+     - nexus
+
+  tasks:
+
+  - name: ensure ntpd is at the latest version
+    yum: pkg=ntp state=latest
+    notify:
+    - restart ntpd
+
+  - name: copy docker_compose file
+    template: src=compose_scripts/compose.j2
+              dest={{ work_dir }}/docker/docker-compose.yml
+              force=yes
+
+  - name: Stop the main docker-compose in case it is already running
+    shell: docker-compose stop chdir={{ work_dir }}/docker
+
+  - name: restart the docker service as we might have changed the firewall settings
+    service: name=docker state=restarted
+
+  - name: start the main docker-compose
+    shell: docker-compose up --build -d chdir={{ work_dir }}/docker
+
+
+
+  handlers:
+    - name: restart ntpd
+      service: name=ntpd state=restarted

@@ -49,22 +49,16 @@ services:
       - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
     volumes:
       - jenkins2-data:/var/jenkins_home
-      - jenkins-keys:/ssh-keys
+      - {{ work_dir }}/ci/ssh-keys:/ssh-keys
     env_file:
       - {{ work_dir }}/ci/GitHub_OAuth_IDs.env
     restart: unless-stopped
-    depends_on:
-      - ssh-keygen
-
-  ssh-keygen:
-    build: ./ssh-keygen-dockerfile
-    volumes:
-      - jenkins-keys:/ssh-keys
 
   ssh-agent:
     image: jenkinsci/ssh-slave
-    environment:
-      - JENKINS_SLAVE_SSH_PUBKEY=ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCjiisr95KxDxxV9knKOm25+R8FGesEOOzJ3dfUzVRqllwKf/3XlGGm88b/5HReSlZ8W1AgdD8HRFyerGay9YpKVNCfu01k2MKtH9fUUHeBu/44l3DqoHz9Kk2Sr2C1fh9SgzDyQRQ762b7NVMx28ONRuO0vU34wl0sqIDYN9L1Flb1C4TW1U2dJb+tC1Z8NDNHGKsOGih57BDDhCvR2j9Z9OewXFIhRHjRkA4Xqel1b/MFnMkD0ijJmJWX1mJiu2rshi1CJXcv86MUH1/zrjW56ZZM4zQodltrcKfic5/Y8h+/Ct+Aod1bmTcimEdCVaFal/AZWhHkD+3kmUkvV3SF root@04cdcac4f748
+    env_file:
+      - {{ work_dir }}/ci/ssh-keys/slave-keys.env
+
   nexus:
     image: sonatype/nexus3
     ports:

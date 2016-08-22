@@ -23,16 +23,31 @@
     content: "{{ GitHub_OAuth_IDs_text }}"
     dest: "{{ work_dir }}/ci/GitHub_OAuth_IDs.env"
 
-### Configure ssh Keygen
+- name: create a directory to store the work ssh keys
+  file: path={{ work_dir }}/ci/ssh-keys state=directory owner=root group=root
 
-- name: Create directory to store the Jenkins agents Dockerfile
-  file: path={{ work_dir }}/docker/ssh-keygen-dockerfile state=directory owner=root group=root
+- name: generate the ssh key to be used for starting slaves
+  shell: "ssh-keygen -b 2048 -t rsa -f {{ work_dir }}/ci/ssh-keys/slavery-id_rsa -q -N '' -C 'Jenkins-Slavery_key' "
+  args:
+    creates: "{{ work_dir }}/ci/ssh-keys/slavery-id_rsa"
 
-- name: Copy the Jenkins agent Dockerfile related data
-  copy: src=ssh-keygen/{{ item }} dest={{ work_dir }}/docker/ssh-keygen-dockerfile/{{ item }}
-  with_items:
-    - Dockerfile
-    - generate-key.sh
+- name: Set the ownership of the "slavery" SSH keys to UID 1000 (jenkins)
+  file: path={{ work_dir }}/ci/ssh-keys/slavery-id_rsa owner=1000 group=1000
+
+- name: Set the ownership of the 'slavery' SSH public keys to UID 1000 (jenkins)
+  file: path={{ work_dir }}/ci/ssh-keys/slavery-id_rsa.pub owner=1000 group=1000
+
+- name: Copy the environment creator script
+  copy:
+    src: "ssh-keygen/create-key-env.sh"
+    dest: "{{ work_dir }}/ci/ssh-keys/create-key-env.sh"
+    mode: "a+x"
+
+- name: Create an environment file so that the public key can be loaded from the compose file.
+  shell: "{{ work_dir }}/ci/ssh-keys/create-key-env.sh"
+  args:
+    chdir: "{{ work_dir }}/ci/ssh-keys/"
+    creates: "{{ work_dir }}/ci/ssh-keys/slave-keys.env"
 
 
 ### Configure agents
