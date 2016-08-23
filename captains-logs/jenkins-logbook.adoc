@@ -139,3 +139,14 @@ I need to industrialize the interaction with GOGS though.
 * I am back to the state where I was at the end of the first tentative.
   Now I need to be able to load automatically the key in jenkins with some Groovy witchery.
 
+=== SSH Jenkins slave : Loading the key with groovy
+
+* I found an https://gist.github.com/hayderimran7/d6ab8a6a770cb970349e[article on the Internet] that shows an sample groovy script to load the key from the user's ~/.ssh directory.
+  It doesn't show though how to proceed to load a key from a directory.
+  But at least I have the name of the classes and methods involved in the SSH key loading.
+* I search the source repositories and found the involved sources.
+  The comments and the variable names are a precious help.
+  I was able to adapt the groovy script (see `roles/jenkins/files/ssh-keygen/load-slavery-key.groovy`) and run it interactively.
+  The loaded key is as it should and the agent is correctly started by the master once correctly configured.
+* Last issue to solve: adapt the script so that if the key is already loaded it is not reloaded.
+
