@@ -146,7 +146,7 @@ I need to industrialize the interaction with GOGS though.
   But at least I have the name of the classes and methods involved in the SSH key loading.
 * I search the source repositories and found the involved sources.
   The comments and the variable names are a precious help.
-  I was able to adapt the groovy script (see `roles/jenkins/files/ssh-keygen/load-slavery-key.groovy`) and run it interactively.
+  I was able to adapt the groovy script (see `roles/jenkins/files/jenkins/load-slavery-key.groovy`) and run it interactively.
   The loaded key is as it should and the agent is correctly started by the master once correctly configured.
-* Last issue to solve: adapt the script so that if the key is already loaded it is not reloaded.
+* Last issue to solve: adapt the script so that if the key is already loaded it is not reloaded (creates a duplicate).
 
