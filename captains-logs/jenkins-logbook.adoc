@@ -149,4 +149,8 @@ I need to industrialize the interaction with GOGS though.
   I was able to adapt the groovy script (see `roles/jenkins/files/jenkins/load-slavery-key.groovy`) and run it interactively.
   The loaded key is as it should and the agent is correctly started by the master once correctly configured.
 * Last issue to solve: adapt the script so that if the key is already loaded it is not reloaded (creates a duplicate).
+* By looking at the groovy samples provided by Cloudbees, I found a snippet that lists the loaded credentials.
+  I used this to loop through them and compare it with the comment.
+  If is only if I didn't find a credential with that comment that I load it.
+* It works interactively. But as it is late, I will try the automation tomorrow or later.
 

@@ -17,4 +17,25 @@ credentials = new BasicSSHUserPrivateKey(
         "",
         "Key to manage the slaves"
 )
-credentials_store.addCredentials(global_domain, credentials)
+
+//Check if the key has already been loaded
+def creds = com.cloudbees.plugins.credentials.CredentialsProvider.lookupCredentials(
+        com.cloudbees.plugins.credentials.common.StandardUsernameCredentials.class,
+        Jenkins.instance,
+        null,
+        null
+);
+
+ boolean found = false
+for (c in creds) {
+    println(c.id + ": " + c.description)
+    if(c.description.equals("Key to manage the slaves")) {
+        found = true
+        println("Key already loaded, skipping.")
+    }
+}
+
+if(!found) {
+    println("Loading SSH key")
+    credentials_store.addCredentials(global_domain, credentials)
+}
