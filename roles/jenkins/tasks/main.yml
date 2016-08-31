@@ -49,6 +49,10 @@
     chdir: "{{ work_dir }}/ci/ssh-keys/"
     creates: "{{ work_dir }}/ci/ssh-keys/slave-keys.env"
 
+- name: copy the key setup groovy to the Jenkins docker directory
+  copy:
+    src: "jenkins/load-slavery-key.groovy"
+    dest: "{{ work_dir }}/docker/jenkins-dockerfile/load-slavery-key.groovy"
 
 ### Configure agents
 

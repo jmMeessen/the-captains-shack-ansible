@@ -18,7 +18,7 @@ Create a separate sub-domain (ci.the-captains-shack.com) and serve it with the n
 * create the `ci_proxy.conf` to be placed in the `/data/nginx/conf/sites-enabled` directory.
    I have two server entries: one that listens to port 80 (that redirects automatically to 443) and the main one for the SSL (443) port.
    The main forwarding is based on https://wiki.jenkins-ci.org/display/JENKINS/Jenkins+behind+an+NGinX+reverse+proxy[this jenkins documentation].
-* Change the `request_certificates.sh`script to add a section for requesting the LetsEncrypt certificate for the subdomain. Running the whole file will either renew the existing certificate or request a new one if it doesn't exist yet.
+* Change the `request_certificates.sh` script to add a section for requesting the LetsEncrypt certificate for the subdomain. Running the whole file will either renew the existing certificate or request a new one if it doesn't exist yet.
 * Adapt the docker-compose file to include the start of the standard jenkins docker image (alpine). I used the sample docker-compose of this https://github.com/dduportal/voxxed-lu-2016[voxxed-lu demo].
 * Validate: use http and https to connect to the Jenkins server.
 
@@ -130,7 +130,7 @@ I need to industrialize the interaction with GOGS though.
 
 * The difficulty I had was to retrieve the public key so that I could use it in the compose file.
   To solve this the key pair must be available before the compose file is executed.
-  This can be achieved with some Ansible. I inlcuded it in the main playbook of the jenkins role.
+  This can be achieved with some Ansible. I included it in the main playbook of the jenkins role.
 * The trick is to generate the key at setup. It will be re-generated at every system regeneration.
   The key is generated in a directory of host. It is mapped as a volume of the Jenkins container with the compose.
   It is important to set the ownership/access rights to the keys so that the user in the Jenkins container can reach it.
@@ -153,4 +153,15 @@ I need to industrialize the interaction with GOGS though.
   I used this to loop through them and compare it with the comment.
   If is only if I didn't find a credential with that comment that I load it.
 * It works interactively. But as it is late, I will try the automation tomorrow or later.
+* The script (`load-slavery-key.groovy`) has been added to the container.
+  After removing the volume for a clean start, the script loads correctly the keys.
+  This key can be used successfully to start the ssh slave.
+* When building the image, I wanted to remove my temporary fix for the "install-plugins.sh" as I had seen that the issue
+  that I had raised had a solution merged. I had to search a little to make it work and have the desired result (dowload the latest version of the plugin).
+  I learned that the official Jenkins image is not rebuilt so often. The `Jenkinsci/jenkins` is pushed at more
+  regular interval (but I don't know at witch rate). The "last pushed" is an indication. Anyway there was also
+  a regression. I had a discussion with the maintainer via Github to sort out the issue.
+* Next step is now to automate the creation of the ssh slave.
+  But with the heat wave hitting Belgium work will be postponed until the conditions get more hacker friendly.
+
 
