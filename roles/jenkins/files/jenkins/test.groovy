@@ -15,11 +15,17 @@ Slave slave = new DumbSlave(
         "1",
         Node.Mode.NORMAL,
         "agent-node-label",
-        new SSHLauncher("agenNode",22,"user","password","","","","",""),
+        new SSHLauncher("ssh-agent",22, "87c379b1-50bb-41e5-9d51-281bf9dc61a8" ,"","/usr/bin/java", "", "", 15, 3, 5),
         new RetentionStrategy.Always(),
         new LinkedList())
 slave.getNodeProperties().add(envPro)
 Jenkins.instance.addNode(slave)
+
+
+
+//public SSHLauncher(String host, int port, String credentialsId,
+//String jvmOptions, String javaPath, String prefixStartSlaveCmd, String suffixStartSlaveCmd,
+//Integer launchTimeoutSeconds, Integer maxNumRetries, Integer retryWaitTime)
 
 //SSHlaucher
 //https://raw.githubusercontent.com/jenkinsci/ssh-slaves-plugin/ae2d6dee1a03a155c991809a4fcac11c5537bdd9/src/main/java/hudson/plugins/sshslaves/SSHLauncher.java

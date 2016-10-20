@@ -9,4 +9,7 @@
     - Dockerfile
     - run.sh
 
+- name: set run.sh as executable
+  file: path={{ work_dir }}/docker/hugo-dockerfile/run.sh state=touch mode="u+rx,g+rx,o+rx"
+
 

@@ -54,6 +54,7 @@
     src: "jenkins/load-slavery-key.groovy"
     dest: "{{ work_dir }}/docker/jenkins-dockerfile/load-slavery-key.groovy"
 
+
 ### Configure agents
 
 - name: Create directory to store the Jenkins agents Dockerfile
