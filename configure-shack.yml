@@ -35,6 +35,7 @@
      - hugo
      - jenkins
      - nexus
+     - survey
 
   tasks:
 

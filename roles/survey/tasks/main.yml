@@ -1,0 +1,5 @@
+---
+
+- name: copy the Limesurvey proxy configuration
+  copy: src=survey_proxy.conf dest={{ work_dir }}/nginx/conf/sites-enabled/
+

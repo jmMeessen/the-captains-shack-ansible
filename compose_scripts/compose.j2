@@ -66,6 +66,15 @@ services:
     volumes:
       - nexus-data:/nexus-data
 
+  limesurvey:
+    ports:
+      - "8082:80"
+    volumes:
+      - lime_mysql:/var/lib/mysql
+      - lime_upload:/app/upload
+    image:
+      crramirez/limesurvey:latest
+
 volumes:
   logVolume:
     external: true
@@ -83,4 +92,9 @@ volumes:
     driver: local
 
   jenkins-keys:
+    driver: local
+
+  lime_mysql:
+    driver: local
+  lime_upload:
     driver: local

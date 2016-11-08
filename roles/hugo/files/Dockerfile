@@ -2,7 +2,8 @@ FROM alpine:latest
 MAINTAINER Johannes Mitlmeier <dev.jojomi@yahoo.com>
 
 ENV HUGO_VERSION=0.16
-RUN apk add --update wget ca-certificates git && \
+RUN apk add --update wget ca-certificates git python py-pip python-dev && \
+  pip install Pygments && \
   cd /tmp/ && \
   wget https://github.com/spf13/hugo/releases/download/v${HUGO_VERSION}/hugo_${HUGO_VERSION}_linux-64bit.tgz && \
   tar xzf hugo_${HUGO_VERSION}_linux-64bit.tgz && \
