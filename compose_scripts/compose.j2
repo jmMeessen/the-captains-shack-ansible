@@ -66,14 +66,14 @@ services:
     volumes:
       - nexus-data:/nexus-data
 
-  limesurvey:
-    ports:
-      - "8082:80"
-    volumes:
-      - lime_mysql:/var/lib/mysql
-      - lime_upload:/app/upload
-    image:
-      crramirez/limesurvey:latest
+#  limesurvey:
+#    ports:
+#      - "8082:80"
+#    volumes:
+#      - lime_mysql:/var/lib/mysql
+#      - lime_upload:/app/upload
+#    image:
+#      crramirez/limesurvey:latest
 
 volumes:
   logVolume:
