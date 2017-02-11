@@ -15,9 +15,6 @@
 - name: Install Pypi
   easy_install: name=pip
 
-- name: Install docker-py
-  pip: name=docker-py
-
 - name: configure docker yum repository
   copy: src=docker.repo
         dest=/etc/yum.repos.d/
@@ -46,6 +43,27 @@
   pip: name=docker-compose
        version="{{ docker_compose_version if docker_compose_version else omit }}"
        state=present
+
+- name: update python after the install of compose
+  yum: name=python*
+       state=latest
+
+- name: Remove docker-py
+  pip: name=docker-py
+       state=absent
+
+- name: Remove docker
+  pip: name=docker
+       state=absent
+
+- name: Install docker-py
+  pip: name=docker-py
+       state=present
+
+- name: be sure that the docker python dependencies are straight
+  pip: name=docker
+       state=present
+
 
 - name: Setting permissions on docker compose
   file:
