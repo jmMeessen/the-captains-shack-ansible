@@ -14,3 +14,8 @@
 
   - name: create the personalisation directory
     file: path={{ work_dir }} state=directory owner=root group=root
+
+  roles:
+     - security_level1
+     - docker
+
