@@ -1,0 +1,16 @@
+---
+- hosts: all
+  become: yes
+  become_method: sudo
+  vars_files:
+    - vars/main.yml
+
+  pre_tasks:
+  - name: create admin users
+    include: playbooks/createAdminUsers.yml
+
+  - name: set timezone
+    file: src=/usr/share/zoneinfo/Europe/Brussels  dest=/etc/localtime state=link force=yes
+
+  - name: create the personalisation directory
+    file: path={{ work_dir }} state=directory owner=root group=root

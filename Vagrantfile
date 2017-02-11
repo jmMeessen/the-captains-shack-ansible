@@ -9,9 +9,7 @@ Vagrant.configure(2) do |config|
     v.cpus = 2
   end
 
-  config.vm.box = "centos7"
-
-  config.vm.box_url = "https://f0fff3908f081cb6461b407be80daf97f07ac418.googledrive.com/host/0BwtuV7VyVTSkUG1PM3pCeDJ4dVE/centos7.box"
+  config.vm.box = "centos/7"
 
   config.vm.hostname = "vagrant"
 
@@ -22,8 +20,8 @@ Vagrant.configure(2) do |config|
   config.vm.network "forwarded_port", guest: 10080, host: 10080, auto_correct: true
 
   config.vm.provision "ansible" do |ansible|
-    ansible.playbook = "bootstrap.yml"
-    ansible.ask_vault_pass = true
+    ansible.playbook = "vagrant-sandbox.yml"
+  #  ansible.ask_vault_pass = true
   end
 
 end

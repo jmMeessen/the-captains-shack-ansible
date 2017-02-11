@@ -9,6 +9,7 @@
   - name: create admin users
     include: playbooks/createAdminUsers.yml
 
+  #FIXME: This works only on the Kimsufi. Make the Vagrant work
   - name: mount Ramdisk as /tmp
     mount: name=/tmp
            src=tmpfs

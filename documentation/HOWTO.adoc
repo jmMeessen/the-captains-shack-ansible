@@ -22,7 +22,7 @@
  91.121.164.117:10022
 
 [vagrant]
- localhost:2222`
+ localhost:2222
 ----
 
 * ansible cfg
@@ -52,6 +52,7 @@ The main configuration is to specify the names of the administrators and users t
 If it is the first time it is executed, the `bootstrap.yml` playbook is automatically executed.
 * To re-execute the playbook the Vagrant way, use `vagrant provision`.
 * To re-execute the playbook the Ansible way, use `ansible-playbook bootstrap.yml -u jmm --limit vagrant`
+* `ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook --private-key=~/.ssh/id_rsa vagrant-sandbox.yml -u jmm --limit vagrant`
 * To come back to the initial situation, perform a `vagrant destroy`
 
 === Bootstrap the Kimsufi system
