@@ -58,11 +58,11 @@
 
 - name: Install docker-py
   pip: name=docker-py
-       state=present
+       state=latest
 
 - name: be sure that the docker python dependencies are straight
   pip: name=docker
-       state=present
+       state=latest
 
 
 - name: Setting permissions on docker compose

@@ -26,8 +26,8 @@
         destfile: "{{ work_dir }}/docker/docker-compose.yml"
         marker: "# {mark} ANSIBLE MANAGED BLOCK (test)"
         insertafter: "services:"
-        block: |2
-          PLACEHOLDER
+        block: |
+          dummy_line
             web:
               image: nginx:latest
               ports:
@@ -44,3 +44,10 @@
                 - jenkins
                 - nexus
               restart: unless-stopped
+
+    - name: Removed a temporary dummy line (workaround for issue #8)
+      lineinfile:
+        dest: "{{ work_dir }}/docker/docker-compose.yml"
+        regexp: ^dummy_line$
+        state: absent
+      changed_when: false
