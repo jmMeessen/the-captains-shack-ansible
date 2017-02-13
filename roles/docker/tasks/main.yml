@@ -12,9 +12,6 @@
 - name: Install python setup tools
   yum: name=python-setuptools
 
-- name: Install Pypi
-  easy_install: name=pip
-
 - name: configure docker yum repository
   copy: src=docker.repo
         dest=/etc/yum.repos.d/
@@ -39,38 +36,13 @@
         append=yes
   with_items: "{{dockerUsers}}"
 
-- name: install docker compose
-  pip: name=docker-compose
-       version="{{ docker_compose_version if docker_compose_version else omit }}"
-       state=present
-
-- name: update python after the install of compose
-  yum: name=python*
-       state=latest
-
-- name: Remove docker-py
-  pip: name=docker-py
-       state=absent
-
-- name: Remove docker
-  pip: name=docker
-       state=absent
-
-- name: Install docker-py
-  pip: name=docker-py
-       state=latest
-
-- name: be sure that the docker python dependencies are straight
-  pip: name=docker
-       state=latest
-
-
-- name: Setting permissions on docker compose
-  file:
-      path: /usr/bin/docker-compose
-      group: root
-      owner: root
-      mode: "0755"
+- name: Download the script to run docler-compose from a container
+  get_url:
+    url: "https://github.com/docker/compose/releases/download/1.10.0/run.sh"
+    dest: /usr/bin/docker-compose
+    group: root
+    owner: root
+    mode: "0755"
 
 - name: Directory to store the docker-compose config
   file: path={{ work_dir }}/docker state=directory owner=root group=root
