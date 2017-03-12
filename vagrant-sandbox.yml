@@ -18,36 +18,8 @@
   roles:
      - security_level1
      - docker
+     - nginx
+     - gogs
+     - hugo
   
-  tasks:
-
-    - name: test update docker-file
-      blockinfile:
-        destfile: "{{ work_dir }}/docker/docker-compose.yml"
-        marker: "# {mark} ANSIBLE MANAGED BLOCK (test)"
-        insertafter: "services:"
-        block: |
-          dummy_line
-            web:
-              image: nginx:latest
-              ports:
-                - "80:80"
-                - "443:443"
-              volumes:
-                - hugo_out:/usr/share/nginx/html:ro
-                - {{ work_dir }}/nginx/conf:/etc/nginx:ro
-                - logVolume:/var/log/nginx/
-              links:
-                - gogs
-              depends_on:
-                - hugo
-                - jenkins
-                - nexus
-              restart: unless-stopped
-
-    - name: Removed a temporary dummy line (workaround for issue #8)
-      lineinfile:
-        dest: "{{ work_dir }}/docker/docker-compose.yml"
-        regexp: ^dummy_line$
-        state: absent
-      changed_when: false
+ 

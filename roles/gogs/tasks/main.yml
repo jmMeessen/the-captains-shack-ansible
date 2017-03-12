@@ -27,3 +27,27 @@
 - name: copy the nginx proxy configuration
   copy: src=gogs_proxy.conf dest={{ work_dir }}/nginx/conf/sites-enabled/
 
+- name: Update main docker-file
+  blockinfile:
+    destfile: "{{ work_dir }}/docker/docker-compose.yml"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK (GOGS)"
+    insertafter: "services:"
+    block: |
+      dummy_line
+        gogs:
+          image: gogs/gogs:latest
+          ports:
+            - "10022:22"
+            - "10080:3000"
+          volumes:
+            - {{ work_dir }}/gogs:/data
+          restart: unless-stopped
+
+- name: Removed a temporary dummy line (workaround for issue #8)
+  lineinfile:
+    dest: "{{ work_dir }}/docker/docker-compose.yml"
+    regexp: ^dummy_line$
+    state: absent
+  changed_when: false
+
+

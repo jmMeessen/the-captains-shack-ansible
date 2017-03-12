@@ -12,4 +12,28 @@
 - name: set run.sh as executable
   file: path={{ work_dir }}/docker/hugo-dockerfile/run.sh state=touch mode="u+rx,g+rx,o+rx"
 
+- name: Update main docker-file
+  blockinfile:
+    destfile: "{{ work_dir }}/docker/docker-compose.yml"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK (Hugo)"
+    insertafter: "services:"
+    block: |
+      dummy_line
+        hugo:
+          build: ./hugo-dockerfile
+          volumes:
+            - hugo_src:/src
+            - hugo_out:/output
+          environment:
+            #- HUGO_WATCH=true
+            - HUGO_REFRESH_TIME=3600
+            - HUGO_THEME=casper
+            - HUGO_BASEURL=https://www.the-captains-shack.com
+          restart: unless-stopped
 
+- name: Removed a temporary dummy line (workaround for issue #8)
+  lineinfile:
+    dest: "{{ work_dir }}/docker/docker-compose.yml"
+    regexp: ^dummy_line$
+    state: absent
+  changed_when: false
