@@ -40,19 +40,11 @@
 - name: Download the script to run docler-compose from a container
   get_url:
     url: "https://github.com/docker/compose/releases/download/1.11.2/docker-compose-Linux-x86_64"
-    dest: /usr/local/bin/docker-compose
-    group: root
-    owner: root
-    mode: "0755"
-    
-- name: create a symlink to this so that it can be found in the path
-  file:
-    src: /usr/local/bin/docker-compose
     dest: /usr/bin/docker-compose
     group: root
     owner: root
     mode: "0755"
-    state: link
+    
 
 - name: Directory to store the docker-compose config
   file: path={{ work_dir }}/docker state=directory owner=root group=root
