@@ -12,3 +12,18 @@
 - name: set run.sh as executable
   file: path={{ work_dir }}/docker/hugo-dockerfile/run.sh state=touch mode="u+rx,g+rx,o+rx"
 
+- name: Update the dockerfile template and copy to where it belongs
+  template: src=docker-compose.j2
+            dest={{ work_dir }}/docker/hugo-compose.yml
+            mode="a+rx"
+            force=yes
+
+- name: create a compose file list configuration file with lineinfile
+  lineinfile: dest={{ work_dir }}/docker/setComposeList.sh 
+              regexp='^export COMPOSE_FILE=(.*)$' 
+              line='export COMPOSE_FILE=\1:hugo-compose.yml'
+              backup=True
+              backrefs=True
+              mode="a+rx"
+              state=present
+

@@ -1,0 +1,28 @@
+version: '2'
+
+services:
+
+  web:
+    volumes:
+      - hugo_out:/usr/share/nginx/html:ro
+    depends_on:
+      - hugo
+
+  hugo:
+    build: ./hugo-dockerfile
+    volumes:
+      - hugo_src:/src
+      - hugo_out:/output
+    environment:
+      #- HUGO_WATCH=true
+      - HUGO_REFRESH_TIME=3600
+      - HUGO_THEME=casper
+      - HUGO_BASEURL=https://www.the-captains-shack.com
+    restart: unless-stopped
+
+volumes:
+  hugo_src:
+    driver: local
+
+  hugo_out:
+    driver: local

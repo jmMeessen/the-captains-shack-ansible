@@ -20,6 +20,6 @@
      - docker
      - nginx
      - gogs
-     #- hugo
+     - hugo
   
  
