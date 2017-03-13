@@ -91,44 +91,17 @@
 - name: Create the data volume to store the logfiles
   command: docker volume create --name logVolume
 
-- name: Update main docker-file
-  blockinfile:
-    destfile: "{{ work_dir }}/docker/docker-compose.yml"
-    marker: "# {mark} ANSIBLE MANAGED BLOCK (NGINX)"
-    insertafter: "services:"
-    block: |
-      dummy_line
-        web:
-          image: nginx:latest
-          ports:
-            - "80:80"
-            - "443:443"
-          volumes:
-            - hugo_out:/usr/share/nginx/html:ro
-            - {{ work_dir }}/nginx/conf:/etc/nginx:ro
-            - logVolume:/var/log/nginx/
-          links:
-            - gogs
-          depends_on:
-            - hugo
-            - jenkins
-            - nexus
-          restart: unless-stopped
+- name: Update the dockerfile template and copy to where it belongs
+  template: src=docker-compose.j2
+            dest={{ work_dir }}/docker/nginx-compose.yml
+            mode="a+rx"
+            force=yes
 
-- name: Update main docker-file (volume part)
-  blockinfile:
-    destfile: "{{ work_dir }}/docker/docker-compose.yml"
-    marker: "# {mark} ANSIBLE MANAGED BLOCK (NGINX-vol)"
-    insertafter: "^volumes:"
-    block: |
-      dummy_line
-        logVolume:
-          external: true
-
-- name: Removed a temporary dummy line (workaround for issue #8)
-  lineinfile:
-    dest: "{{ work_dir }}/docker/docker-compose.yml"
-    regexp: ^dummy_line$
-    state: absent
-  changed_when: false
+- name: create a compose file list configuration file with lineinfile
+  lineinfile: dest={{ work_dir }}/docker/setComposeList.sh 
+              regexp='^' 
+              line='export COMPOSE_FILE=nginx-compose.yml'
+              mode="a+rx"
+              state=present
+              create=True
 

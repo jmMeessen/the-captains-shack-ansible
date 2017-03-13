@@ -47,11 +47,6 @@
 - name: Directory to store the docker-compose config
   file: path={{ work_dir }}/docker state=directory owner=root group=root
 
-- name: copy empty docker-compose file
-  copy: src=files/empty-compose.yml
-            dest={{ work_dir }}/docker/docker-compose.yml
-            force=no
-
 - name: Update restart_web bash and copy
   template: src=restart_web.j2
             dest={{ work_dir }}/docker/restart_web.sh

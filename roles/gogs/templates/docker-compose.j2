@@ -1,0 +1,16 @@
+version: '2'
+
+services:
+
+  web:
+    links:
+      - gogs
+
+  gogs:
+    image: gogs/gogs:latest
+    ports:
+      - "10022:22"
+      - "10080:3000"
+    volumes:
+      - {{ work_dir }}/gogs:/data
+    restart: unless-stopped

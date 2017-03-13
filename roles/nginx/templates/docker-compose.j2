@@ -1,0 +1,17 @@
+version: '2'
+
+services:
+
+  web:
+    image: nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - {{ work_dir }}/nginx/conf:/etc/nginx:ro
+      - logVolume:/var/log/nginx/
+    restart: unless-stopped
+
+volumes:
+  logVolume:
+    external: true
