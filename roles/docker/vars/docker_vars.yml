@@ -5,4 +5,4 @@ dockerUsers:
 
 docker_engine_version: docker-engine-0:1.11.2
 
-docker_compose_version:
+docker_compose_version: 1.11.2
