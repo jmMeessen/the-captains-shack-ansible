@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 cd {{ work_dir }}/docker
+. ./setComposeList.sh
 docker-compose ps
 docker-compose stop
 docker-compose up -d

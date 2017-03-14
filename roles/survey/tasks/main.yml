@@ -3,3 +3,16 @@
 - name: copy the Limesurvey proxy configuration
   copy: src=survey_proxy.conf dest={{ work_dir }}/nginx/conf/sites-enabled/
 
+- name: Update the dockerfile template and copy to where it belongs
+  template: src=docker-compose.j2
+            dest={{ work_dir }}/docker/limeSurvey-compose.yml
+            mode="a+rx"
+            force=yes
+
+- name: create a compose file list configuration file with lineinfile
+  lineinfile: dest={{ work_dir }}/docker/setComposeList.sh 
+              regexp='^export COMPOSE_FILE=(.*)$' 
+              line='export COMPOSE_FILE=\1:limeSurvey-compose.yml'
+              backrefs=True
+              mode="a+rx"
+              state=present
