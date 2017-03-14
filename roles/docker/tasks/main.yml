@@ -50,7 +50,12 @@
   file: path={{ work_dir }}/docker state=directory owner=root group=root
 
 - name: Update restart_web bash and copy
-  template: src=restart_web.j2
-            dest={{ work_dir }}/docker/restart_web.sh
+  template: src={{ item }}.j2
+            dest={{ work_dir }}/docker/{{ item }}.sh
             mode="a+rx"
             force=yes
+  with_items:
+    - build_and_start_web
+    - restart_web
+    - start_web
+    - stop_web

@@ -36,7 +36,7 @@
      - hugo
      - jenkins
      - nexus
-     - survey
+     #- survey
 
   tasks:
 
@@ -57,7 +57,7 @@
     service: name=docker state=restarted
 
   - name: start the main docker-compose
-    shell: docker-compose up --build -d chdir={{ work_dir }}/docker
+    shell: {{ work_dir }}/docker/build_and_start_web.sh
 
 
 
