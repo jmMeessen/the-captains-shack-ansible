@@ -37,7 +37,6 @@
   lineinfile: dest={{ work_dir }}/docker/setComposeList.sh 
               regexp='^export COMPOSE_FILE=(.*)$' 
               line='export COMPOSE_FILE=\1:gogs-compose.yml'
-              backup=True
               backrefs=True
               mode="a+rx"
               state=present

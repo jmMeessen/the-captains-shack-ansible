@@ -3,45 +3,19 @@
 - name: copy the nginx proxy configuration for the Jenkins sub-system
   copy: src=ci_proxy.conf dest={{ work_dir }}/nginx/conf/sites-enabled/
 
-- name: Update main docker-file (Jenkins)
-  blockinfile:
-    destfile: "{{ work_dir }}/docker/docker-compose.yml"
-    marker: "# {mark} ANSIBLE MANAGED BLOCK (Jenkins)"
-    insertafter: "services:"
-    block: |
-      dummy_line
-        jenkins:
-          build: ./jenkins-dockerfile
-          environment:
-            - JENKINS_OPTS=--httpPort=8080
-            - JENKINS_SLAVE_AGENT_PORT=50000
-            - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
-          volumes:
-            - jenkins2-data:/var/jenkins_home
-            - {{ work_dir }}/ci/ssh-keys:/ssh-keys
-          env_file:
-            - {{ work_dir }}/ci/GitHub_OAuth_IDs.env
-          restart: unless-stopped
+- name: Update the dockerfile template and copy to where it belongs
+  template: src=docker-compose.j2
+            dest={{ work_dir }}/docker/jenkins-compose.yml
+            mode="a+rx"
+            force=yes
 
-- name: Update main docker-file (SSH agent)
-  blockinfile:
-    destfile: "{{ work_dir }}/docker/docker-compose.yml"
-    marker: "# {mark} ANSIBLE MANAGED BLOCK (ssh-agent)"
-    insertafter: "services:"
-    block: |
-      dummy_line
-        ssh-agent:
-          image: jenkinsci/ssh-slave
-          env_file:
-            - {{ work_dir }}/ci/ssh-keys/slave-keys.env  
-
-- name: Removed a temporary dummy line (workaround for issue #8)
-  lineinfile:
-    dest: "{{ work_dir }}/docker/docker-compose.yml"
-    regexp: ^dummy_line$
-    state: absent
-  changed_when: false
-
+- name: create a compose file list configuration file with lineinfile
+  lineinfile: dest={{ work_dir }}/docker/setComposeList.sh 
+              regexp='^export COMPOSE_FILE=(.*)$' 
+              line='export COMPOSE_FILE=\1:jenkins-compose.yml'
+              backrefs=True
+              mode="a+rx"
+              state=present
 
 - name: Create directory to store the Jenkins Dockerfile
   file: path={{ work_dir }}/docker/jenkins-dockerfile state=directory owner=root group=root

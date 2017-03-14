@@ -21,5 +21,7 @@
      - nginx
      - gogs
      - hugo
+     - jenkins
+     - nexus
   
  
