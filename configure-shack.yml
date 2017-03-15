@@ -57,7 +57,7 @@
     service: name=docker state=restarted
 
   - name: start the main docker-compose
-    shell: {{ work_dir }}/docker/build_and_start_web.sh
+    shell: "{{ work_dir }}/docker/build_and_start_web.sh"
 
 
 
