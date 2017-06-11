@@ -36,8 +36,7 @@
         append=yes
   with_items: "{{dockerUsers}}"
 
-#FIXME: make this version configurable
-- name: Download the script to run docler-compose from a container
+- name: Download the script to run docker-compose from a container
   get_url:
     url: "https://github.com/docker/compose/releases/download/{{docker_compose_version}}/docker-compose-Linux-x86_64"
     dest: /usr/bin/docker-compose
@@ -49,6 +48,10 @@
 - name: Directory to store the docker-compose config
   file: path={{ work_dir }}/docker state=directory owner=root group=root
 
+- name: create a temporary directory for docker compose
+  file: path={{ work_dir }}/docker/temp state=directory owner=root group=root
+
+
 - name: Update restart_web bash and copy
   template: src={{ item }}.j2
             dest={{ work_dir }}/docker/{{ item }}.sh
@@ -59,3 +62,4 @@
     - restart_web
     - start_web
     - stop_web
+

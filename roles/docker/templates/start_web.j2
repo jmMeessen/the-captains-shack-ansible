@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# set the local tempdir needed by docker-compose
+export TMPDIR={{ work_dir }}/data/docker/temp
+
 cd {{ work_dir }}/docker
 . ./setComposeList.sh
 docker-compose up -d

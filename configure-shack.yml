@@ -52,12 +52,16 @@
 
   - name: Stop the main docker-compose in case it is already running
     shell: docker-compose stop chdir={{ work_dir }}/docker
+    environment:
+      TMPDIR: /home/data/docker/temp
 
   - name: restart the docker service as we might have changed the firewall settings
     service: name=docker state=restarted
 
   - name: start the main docker-compose
     shell: "{{ work_dir }}/docker/build_and_start_web.sh"
+    environment:
+      TMPDIR: /home/data/docker/temp
 
 
 
