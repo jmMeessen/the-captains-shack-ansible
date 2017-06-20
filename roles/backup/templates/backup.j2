@@ -2,8 +2,22 @@
 
 cd {{ work_dir }}/backup
 
-# set the local tempdir needed by docker-compose
-export TMPDIR={{ work_dir }}/data/docker/temp
+#Set tempdir to make DockerCompose work
+export TMPDIR={{ work_dir }}/docker/temp
 
-docker-compose -f docker-compose.yml up
+echo "`date -u` backup started" >> backup.log
+
+#Take snapshot copy
+timeString=`date +"%Y%m%d_%H%M%S"`
+tar_file="gogs_backup${timeString}.tar.gz"
+backup_tar_to_copy="{{ work_dir }}/backup_data/${tar_file}"
+tar -zcvf ${backup_tar_to_copy} /home/data/gogs
+
+docker-compose -f docker-compose.yml run  -e file_to_copy=${tar_file} gogs_snapshot
+
+#Take mirror copy
+docker-compose -f docker-compose.yml run  backup_gogs
+
+echo "`date -u` backup completed with exit code $?" >> backup.log
+echo "----------------------------------------------" >> backup.log
 

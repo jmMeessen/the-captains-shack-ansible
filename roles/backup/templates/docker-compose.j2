@@ -9,16 +9,16 @@ backup_gogs:
           - S3backup_keys.env
           - backup.env
 
-backup_ssl_keys:
+gogs_snapshot:
         build: ./docker-s3cmd/
         volumes:
-          - {{ work_dir }}/nginx/conf/ssl/:/opt/src/
+          - {{ work_dir }}/backup_data/:/opt/src/
           - /etc/:/opt/ro_etc/:ro
         environment:
-          - backup_target_dir=/ssl/
+          - backup_target_dir=/gogs_snapshots/
         env_file:
           - S3backup_keys.env
-          - backup.env
+          - copy_snapshot.env
 
 
 

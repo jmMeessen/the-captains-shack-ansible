@@ -2,11 +2,11 @@ FROM ubuntu:14.04
 
 # Update Ubuntu and install common packages
 RUN apt-get update -y && apt-get install -y wget python-setuptools
-RUN wget http://sourceforge.net/projects/s3tools/files/s3cmd/1.6.0/s3cmd-1.6.0.tar.gz && \
-    tar -zxvf s3cmd-1.6.0.tar.gz && \
-    cd /s3cmd-1.6.0 && \
+RUN wget http://sourceforge.net/projects/s3tools/files/s3cmd/1.6.1/s3cmd-1.6.1.tar.gz && \
+    tar -zxvf s3cmd-1.6.1.tar.gz && \
+    cd /s3cmd-1.6.1 && \
     python setup.py install && \
-    rm /s3cmd-1.6.0.tar.gz
+    rm /s3cmd-1.6.1.tar.gz
 
 ADD files/s3cfg /.s3cfg
 ADD files/main.sh /main.sh

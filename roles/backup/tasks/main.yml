@@ -1,12 +1,23 @@
 ---
 
 - name: Create directory to the backup related files
-  file: path={{ work_dir }}/backup/docker-s3cmd/files state=directory owner=root group=root
+  file: path="{{ work_dir }}/backup/docker-s3cmd/files" 
+        state=directory 
+        owner=root 
+        group=root
+
+- name: Create directory to store the backup snapshots
+  file: path="{{ work_dir }}/backup_data" 
+        state=directory 
+        owner=root 
+        group=root
+        mode="a+rw"
 
 - name: Copy default configuration files
   copy: src={{ item }} dest={{ work_dir }}/backup/{{ item }}
   with_items:
     - backup.env
+    - copy_snapshot.env
     - docker-s3cmd/Dockerfile
     - docker-s3cmd/files/main.sh
     - docker-s3cmd/files/s3cfg
@@ -42,3 +53,12 @@
         minute="30"
         job="{{ work_dir }}/backup/backup.sh"
 
+- name:  build the backup images
+  shell: "docker-compose build {{ item }}" 
+  args:
+    chdir: "{{ work_dir }}/backup"
+  environment:
+    TMPDIR: "{{ work_dir }}/docker/temp"
+  with_items:
+    - backup_gogs
+    - gogs_snapshot

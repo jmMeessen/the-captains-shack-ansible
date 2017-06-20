@@ -28,13 +28,13 @@
 #     - git
 #     - nginx
 #     - gogs
-#     - backup
+     - backup
 #     - letsencrypt
 #     - openvpn
 #     - goaccess
 #     - hugo
-     - jenkins
-     - nexus
+#     - jenkins
+#     - nexus
 
   tasks:
 
@@ -49,13 +49,21 @@
               force=yes
 
   - name: Stop the main docker-compose in case it is already running
-    shell: docker-compose stop chdir={{ work_dir }}/docker
+    shell: "docker-compose stop" 
+    args:
+      chdir: "{{ work_dir }}/docker"
+    environment:
+      TMPDIR: "{{ work_dir }}/docker/temp"
 
   - name: restart the docker service as we might have changed the firewall settings
     service: name=docker state=restarted
 
   - name: start the main docker-compose
-    shell: docker-compose up --build -d chdir={{ work_dir }}/docker
+    shell: "docker-compose up --build -d" 
+    args:
+      chdir: "{{ work_dir }}/docker"
+    environment:
+      TMPDIR: "{{ work_dir }}/docker/temp"
 
 
 
