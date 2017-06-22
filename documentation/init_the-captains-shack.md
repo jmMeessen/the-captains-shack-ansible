@@ -24,5 +24,6 @@
 - git
 - ci
 - vpn
+- check backup
 
 Note: it might be necessary to install `sshpass`. On OSX use de command `brew install https://raw.githubusercontent.com/kadwanev/bigboybrew/master/Library/Formula/sshpass.rb`
