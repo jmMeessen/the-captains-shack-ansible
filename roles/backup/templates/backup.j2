@@ -7,17 +7,41 @@ export TMPDIR={{ work_dir }}/docker/temp
 
 echo "`date -u` backup started" >> backup.log
 
-#Take snapshot copy
+#Prepare some variables
 timeString=`date +"%Y%m%d_%H%M%S"`
-tar_file="gogs_backup${timeString}.tar.gz"
-backup_tar_to_copy="{{ work_dir }}/backup_data/${tar_file}"
-tar -zcvf ${backup_tar_to_copy} /home/data/gogs
+local_backup_dir="{{ work_dir }}/backup_data/"
 
-docker-compose -f docker-compose.yml run  -e file_to_copy=${tar_file} gogs_snapshot
 
-#Take mirror copy
+##
+## Backup GOGS files
+##
+
+gogs_tar_file="gogs_backup${timeString}.tar.gz"
+gogs_backup_tar_to_copy="${local_backup_dir}${gogs_tar_file}"
+tar -zcvf ${gogs_backup_tar_to_copy} /home/data/gogs
+
+#Store as snapshot
+docker-compose -f docker-compose.yml run  -e file_to_copy=${gogs_tar_file} gogs_snapshot
+
+#Store as mirror copy
 docker-compose -f docker-compose.yml run  backup_gogs
+
+
+
+##
+## Backup NGINX log files
+##
+
+accessLog_tar_file="accessLog_backup${timeString}.tar.gz"
+accessLog_backup_tar_to_copy="${local_backup_dir}${accessLog_tar_file}"
+
+docker run --rm -v logVolume:/var/log/nginx -v "${local_backup_dir}":/backup  alpine:latest tar -zcvf /backup/${accessLog_tar_file} /var/log/nginx/main-access.log
+
+docker-compose -f docker-compose.yml run  -e file_to_copy=${accessLog_tar_file} nginx_logs
+
+
 
 echo "`date -u` backup completed with exit code $?" >> backup.log
 echo "----------------------------------------------" >> backup.log
+
 

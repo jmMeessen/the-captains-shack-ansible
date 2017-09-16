@@ -1,25 +1,35 @@
 backup_gogs:
-        build: ./docker-s3cmd/
-        volumes:
-          - {{ work_dir }}/gogs/:/opt/src/
-          - /etc/:/opt/ro_etc/:ro
-        environment:
-          - backup_target_dir=/gogs/
-        env_file:
-          - S3backup_keys.env
-          - backup.env
+  build: ./docker-s3cmd/
+  volumes:
+    - {{ work_dir }}/gogs/:/opt/src/
+    - /etc/:/opt/ro_etc/:ro
+  environment:
+    - backup_target_dir=/gogs/
+  env_file:
+    - S3backup_keys.env
+    - backup.env
 
 gogs_snapshot:
-        build: ./docker-s3cmd/
-        volumes:
-          - {{ work_dir }}/backup_data/:/opt/src/
-          - /etc/:/opt/ro_etc/:ro
-        environment:
-          - backup_target_dir=/gogs_snapshots/
-        env_file:
-          - S3backup_keys.env
-          - copy_snapshot.env
+  build: ./docker-s3cmd/
+  volumes:
+    - {{ work_dir }}/backup_data/:/opt/src/
+    - /etc/:/opt/ro_etc/:ro
+  environment:
+    - backup_target_dir=/gogs_snapshots/
+  env_file:
+    - S3backup_keys.env
+    - copy_snapshot.env
 
+nginx_logs:
+  build: ./docker-s3cmd/
+  volumes:
+    - {{ work_dir }}/backup_data/:/opt/src/
+    - /etc/:/opt/ro_etc/:ro
+  environment:
+    - backup_target_dir=/nginx_logs/
+  env_file:
+    - S3backup_keys.env
+    - copy_snapshot.env
 
 
 
