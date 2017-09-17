@@ -1,34 +1,30 @@
 - name: Include OS-specific variables.
   include_vars: "docker_vars.yml"
 
-- name: install docker SElinux policies (requiered for Centos)
-  yum: name=docker-selinux
-       state=absent
 
 - name: Update the complete system
   yum: name=*
        state=latest
 
-- name: Install python setup tools
-  yum: name=python-setuptools
+- name: install the Docker CE prerequisite
+  yum: name={{ item }}
+       state=present
+  with_items:
+    - yum-utils
+    - device-mapper-persistent-data
+    - lvm2
 
-- name: configure docker yum repository
-  copy: src=docker.repo
-        dest=/etc/yum.repos.d/
-        owner=root group=root mode=0644
+- name: Add docker repository
+  shell: yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 
 - name: install docker
-  yum: name={{ docker_engine_version }}*
+  yum: name={{ docker_version }}
        state=present
 
 - name: start docker daemon
   service: name=docker
            state=started
            enabled=yes
-
-- name: create a docker user group
-  group: name=docker
-         state=present
 
 - name: add listed users to the docker group
   user: name="{{ item }}"
@@ -38,19 +34,17 @@
 
 - name: Download the script to run docker-compose from a container
   get_url:
-    url: "https://github.com/docker/compose/releases/download/{{docker_compose_version}}/docker-compose-Linux-x86_64"
+    url: "https://github.com/docker/compose/releases/download/{{docker_compose_version}}/run.sh"
     dest: /usr/bin/docker-compose
     group: root
     owner: root
     mode: "0755"
-    
 
 - name: Directory to store the docker-compose config
   file: path={{ work_dir }}/docker state=directory owner=root group=root
 
 - name: create a temporary directory for docker compose
   file: path={{ work_dir }}/docker/temp state=directory owner=root group=root
-
 
 - name: Update restart_web bash and copy
   template: src={{ item }}.j2
