@@ -24,11 +24,11 @@
 
   roles:
 #     - security_level1
-#     - docker
+      - docker
 #     - git
 #     - nginx
 #     - gogs
-     - backup
+#     - backup
 #     - letsencrypt
 #     - openvpn
 #     - goaccess
