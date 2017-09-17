@@ -1,4 +1,9 @@
 #tasks:
+  - name: Make sure we have a 'wheel' group
+    group:
+      name: wheel
+      state: present
+
   - name: create admin accounts
     user: name="{{ item }}"
         createhome=yes
@@ -7,6 +12,14 @@
         groups=wheel
         password="$6$rounds=100000$DotqIzX010bHLjJL$Q0UtYwxBQkCWtYZsx6XKUYKOTIE3jbjMkMrIQf2IXbmsBFpnyUyorsdCTZpRl4uRUWG6D6VJo5BKLxgpJA3GV."
     with_items: "{{adminUsers}}"
+
+  - name: Allow 'wheel' group to have passwordless sudo
+    lineinfile:
+      dest: /etc/sudoers
+      state: present
+      regexp: '^%wheel'
+      line: '%wheel ALL=(ALL) NOPASSWD: ALL'
+
 
   - name : update authorized keys
     authorized_key: user="{{ item }}"
