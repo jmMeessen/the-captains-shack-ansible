@@ -13,16 +13,18 @@ docker build -t jmm/docker_s3cmd:latest docker-s3cmd/
 docker run --rm  \
 --env aws_key=$aws_key --env aws_secret=$aws_secret \
 --env cmd=sync-s3-to-local \
---env SRC_S3=s3://the-captains-shack.com/ns360684.ip-91-121-164.eu/gogs \
+--env SRC_S3=s3://the-captains-shack.com/ns3290519.ip-5-135-185.eu/gogs \
 -v {{ work_dir }}/:/opt/dest \
+-v /etc/:/opt/ro_etc/:ro \
 jmm/docker_s3cmd:latest
-chown -R root:root {{ work_dir }}/gogs
 
-docker run --rm  \
---env aws_key=$aws_key --env aws_secret=$aws_secret \
---env cmd=sync-s3-to-local \
---env SRC_S3=s3://the-captains-shack.com/ns360684.ip-91-121-164.eu/ssl \
--v {{ work_dir }}/nginx/conf/:/opt/dest \
-jmm/docker_s3cmd:latest
+sudo chown -R root:root {{ work_dir }}/gogs
+
+# docker run --rm  \
+# --env aws_key=$aws_key --env aws_secret=$aws_secret \
+# --env cmd=sync-s3-to-local \
+# --env SRC_S3=s3://the-captains-shack.com/ns3290519.ip-5-135-185.eu/ssl \
+# -v {{ work_dir }}/nginx/conf/:/opt/dest \
+# jmm/docker_s3cmd:latest
 
 {{ work_dir }}/docker/restart_web.sh
