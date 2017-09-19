@@ -2,9 +2,6 @@
 
 cd {{ work_dir }}/backup
 
-#Set tempdir to make DockerCompose work
-export TMPDIR={{ work_dir }}/docker/temp
-
 echo "`date -u` backup started" >> backup.log
 
 #Prepare some variables
