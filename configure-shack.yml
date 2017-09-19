@@ -34,7 +34,7 @@
      - openvpn
      - goaccess
      - hugo
-     #- jenkins
+     - jenkins
      #- nexus
      #- survey
 
@@ -45,23 +45,20 @@
     notify:
     - restart ntpd
 
-  - name: copy docker_compose file
-    template: src=compose_scripts/compose.j2
-              dest={{ work_dir }}/docker/docker-compose.yml
-              force=yes
+  # - name: copy docker_compose file
+  #   template: src=compose_scripts/compose.j2
+  #             dest={{ work_dir }}/docker/docker-compose.yml
+  #             force=yes
 
   - name: Stop the main docker-compose in case it is already running
     shell: "{{ work_dir }}/docker/stop_web.sh"
-    environment:
-      TMPDIR: "{{ work_dir }}/docker/temp"
 
   - name: restart the docker service as we might have changed the firewall settings
     service: name=docker state=restarted
 
   - name: start the main docker-compose
     shell: "{{ work_dir }}/docker/build_and_start_web.sh"
-    environment:
-      TMPDIR: "{{ work_dir }}/docker/temp"
+
 
 
 

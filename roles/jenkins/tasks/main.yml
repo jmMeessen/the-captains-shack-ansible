@@ -1,4 +1,6 @@
 ---
+- name: Include OS-specific variables.
+  include_vars: "jenkins_vars.yml"
 
 - name: copy the nginx proxy configuration for the Jenkins sub-system
   copy: src=ci_proxy.conf dest={{ work_dir }}/nginx/conf/sites-enabled/
@@ -18,16 +20,16 @@
               state=present
 
 - name: Create directory to store the Jenkins Dockerfile
-  file: path={{ work_dir }}/docker/jenkins-dockerfile state=directory owner=root group=root
+  file: path="{{ docker_jenkins_dir }}" state=directory owner=root group=root
 
 - name: Copy the Jenkins Dockerfile related data
-  copy: src=jenkins/{{ item }} dest={{ work_dir }}/docker/jenkins-dockerfile/{{ item }}
+  copy: src=jenkins/{{ item }} dest={{ docker_jenkins_dir }}/{{ item }}
   with_items:
     - Dockerfile
     - enableGitHubOAuth.groovy
 
 - name: Create directory to store the Jenkins related data
-  file: path={{ work_dir }}/ci state=directory owner=root group=root
+  file: path={{ docker_jenkins_data_dir }} state=directory owner=root group=root
 
 - name: Load encrypted OAuth IDs
   include_vars: "GitHub_OAuth_IDs.yml"
@@ -35,38 +37,38 @@
 - name: Copy the OAuth IDs
   copy:
     content: "{{ GitHub_OAuth_IDs_text }}"
-    dest: "{{ work_dir }}/ci/GitHub_OAuth_IDs.env"
+    dest: "{{ docker_jenkins_data_dir }}/GitHub_OAuth_IDs.env"
 
 - name: create a directory to store the work ssh keys
-  file: path={{ work_dir }}/ci/ssh-keys state=directory owner=root group=root
+  file: path={{ docker_jenkins_data_dir }}/ssh-keys state=directory owner=root group=root
 
 - name: generate the ssh key to be used for starting slaves
-  shell: "ssh-keygen -b 2048 -t rsa -f {{ work_dir }}/ci/ssh-keys/slavery-id_rsa -q -N '' -C 'Jenkins-Slavery_key' "
+  shell: "ssh-keygen -b 2048 -t rsa -f {{ docker_jenkins_data_dir }}/ssh-keys/slavery-id_rsa -q -N '' -C 'Jenkins-Slavery_key' "
   args:
-    creates: "{{ work_dir }}/ci/ssh-keys/slavery-id_rsa"
+    creates: "{{ docker_jenkins_data_dir }}/ssh-keys/slavery-id_rsa"
 
 - name: Set the ownership of the "slavery" SSH keys to UID 1000 (jenkins)
-  file: path={{ work_dir }}/ci/ssh-keys/slavery-id_rsa owner=1000 group=1000
+  file: path={{ docker_jenkins_data_dir }}/ssh-keys/slavery-id_rsa owner=1000 group=1000
 
 - name: Set the ownership of the 'slavery' SSH public keys to UID 1000 (jenkins)
-  file: path={{ work_dir }}/ci/ssh-keys/slavery-id_rsa.pub owner=1000 group=1000
+  file: path={{ docker_jenkins_data_dir }}/ssh-keys/slavery-id_rsa.pub owner=1000 group=1000
 
 - name: Copy the environment creator script
   copy:
     src: "ssh-keygen/create-key-env.sh"
-    dest: "{{ work_dir }}/ci/ssh-keys/create-key-env.sh"
+    dest: "{{ docker_jenkins_data_dir }}/ssh-keys/create-key-env.sh"
     mode: "a+x"
 
 - name: Create an environment file so that the public key can be loaded from the compose file.
-  shell: "{{ work_dir }}/ci/ssh-keys/create-key-env.sh"
+  shell: "{{ docker_jenkins_data_dir }}/ssh-keys/create-key-env.sh"
   args:
-    chdir: "{{ work_dir }}/ci/ssh-keys/"
-    creates: "{{ work_dir }}/ci/ssh-keys/slave-keys.env"
+    chdir: "{{ docker_jenkins_data_dir }}/ssh-keys/"
+    creates: "{{ docker_jenkins_data_dir }}/ssh-keys/slave-keys.env"
 
 - name: copy the key setup groovy to the Jenkins docker directory
   copy:
     src: "jenkins/load-slavery-key.groovy"
-    dest: "{{ work_dir }}/docker/jenkins-dockerfile/load-slavery-key.groovy"
+    dest: "{{ docker_jenkins_dir }}/load-slavery-key.groovy"
 
 
 ### Configure agents
@@ -75,7 +77,8 @@
   file: path={{ work_dir }}/docker/jenkins-agents-dockerfile state=directory owner=root group=root
 
 - name: Copy the Jenkins agent Dockerfile related data
-  copy: src=jenkins-agent/{{ item }} dest={{ work_dir }}/docker/jenkins-agents-dockerfile/{{ item }}
+  copy: src=jenkins-agent/{{ item }} 
+        dest={{ work_dir }}/docker/jenkins-agents-dockerfile/{{ item }}
   with_items:
     - Dockerfile-build-agent
     - entrypoint.sh

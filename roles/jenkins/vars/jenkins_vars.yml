@@ -1,0 +1,7 @@
+---
+
+docker_jenkins_dir: "{{ work_dir }}/docker/jenkins-dockerfile"
+
+jenkins_data_dir: "jenkins-data"
+
+docker_jenkins_data_dir: "{{ work_dir }}/docker/{{ jenkins_data_dir }}"

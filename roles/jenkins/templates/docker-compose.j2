@@ -14,15 +14,15 @@ services:
       - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
     volumes:
       - jenkins2-data:/var/jenkins_home
-      - {{ work_dir }}/ci/ssh-keys:/ssh-keys
+      - ./{{ jenkins_data_dir }}/ssh-keys:/ssh-keys
     env_file:
-      - {{ work_dir }}/ci/GitHub_OAuth_IDs.env
+      - {{ jenkins_data_dir }}/GitHub_OAuth_IDs.env
     restart: unless-stopped
 
   ssh-agent:
     image: jenkinsci/ssh-slave
     env_file:
-      - {{ work_dir }}/ci/ssh-keys/slave-keys.env
+      - {{ jenkins_data_dir }}/ssh-keys/slave-keys.env
 
 volumes:
 
