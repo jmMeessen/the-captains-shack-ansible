@@ -6,8 +6,8 @@
     - vars/main.yml
 
   pre_tasks:
-  # - name: create admin users
-  #   include: playbooks/createAdminUsers.yml
+  - name: create admin users
+    include: playbooks/createAdminUsers.yml
 
   # - name: mount Ramdisk as /tmp
   #   mount: name=/tmp

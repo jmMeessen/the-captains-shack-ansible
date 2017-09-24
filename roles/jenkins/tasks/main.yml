@@ -34,6 +34,7 @@
   with_items:
     - Dockerfile
     - enableGitHubOAuth.groovy
+    - system.groovy
 
 - name: Create directory to store the Jenkins related data
   file: path={{ docker_jenkins_data_dir }} state=directory owner=root group=root
