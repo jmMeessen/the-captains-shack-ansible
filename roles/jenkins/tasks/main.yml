@@ -11,6 +11,12 @@
             mode="a+rx"
             force=yes
 
+- name: Check whether setComposeList.sh contains already "jenkins-compose.yml"
+  command: grep -Fq "jenkins-compose.yml" {{ work_dir }}/docker/setComposeList.sh
+  register: checkJenkinsComposePresent
+  ignore_errors: True
+  changed_when: False
+
 - name: create a compose file list configuration file with lineinfile
   lineinfile: dest={{ work_dir }}/docker/setComposeList.sh 
               regexp='^export COMPOSE_FILE=(.*)$' 
@@ -18,6 +24,7 @@
               backrefs=True
               mode="a+rx"
               state=present
+  when: checkJenkinsComposePresent.rc == 1
 
 - name: Create directory to store the Jenkins Dockerfile
   file: path="{{ docker_jenkins_dir }}" state=directory owner=root group=root

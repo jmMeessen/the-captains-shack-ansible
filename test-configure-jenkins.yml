@@ -38,10 +38,10 @@
 
   tasks:
 
-  - name: ensure ntpd is at the latest version
-    yum: pkg=ntp state=latest
-    notify:
-    - restart ntpd
+  # - name: ensure ntpd is at the latest version
+  #   yum: pkg=ntp state=latest
+  #   notify:
+  #   - restart ntpd
 
   # - name: copy docker_compose file
   #   template: src=compose_scripts/compose.j2
