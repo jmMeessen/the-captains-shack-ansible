@@ -1,5 +1,5 @@
 #FROM jenkins:latest
-FROM jenkinsci/jenkins:latest
+FROM jenkins/jenkins:lts
 
 RUN /usr/local/bin/install-plugins.sh github-oauth workflow-aggregator ssh-slaves build-timeout pipeline-utility-steps
 

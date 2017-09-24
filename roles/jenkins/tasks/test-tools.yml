@@ -1,0 +1,23 @@
+---
+
+- name: Copy the "CD to Docker directory" script
+  copy: 
+    src=test-tools/cd-jenkins.sh 
+    dest=/home/jmm/cd-jenkins.sh
+    force=yes
+    mode="a+rx"
+    owner=jmm
+    group=jmm
+
+- name: Copy the various helper scripts
+  copy: src=test-tools/{{ item }} 
+        dest={{ work_dir }}/docker/{{ item }}
+        force=yes
+        mode="a+rx"
+  with_items:
+    - jenkins-start.sh
+    - jenkins-stop.sh
+    - jenkins-rebuild.sh
+    - jenkins-volume-reset.sh
+    - jenkins-remove.sh
+    - jenkins-test.sh

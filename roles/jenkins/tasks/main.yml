@@ -84,3 +84,7 @@
     - entrypoint.sh
     - settings.xml
     - slave-definition.xml
+
+
+- name: load the test tools
+  include: "test-tools.yml"

@@ -6,15 +6,15 @@
     - vars/main.yml
 
   pre_tasks:
-  - name: create admin users
-    include: playbooks/createAdminUsers.yml
+  # - name: create admin users
+  #   include: playbooks/createAdminUsers.yml
 
-  - name: mount Ramdisk as /tmp
-    mount: name=/tmp
-           src=tmpfs
-           fstype=tmpfs
-           opts="size=512m,nodev,nosuid,noexec"
-           state=mounted
+  # - name: mount Ramdisk as /tmp
+  #   mount: name=/tmp
+  #          src=tmpfs
+  #          fstype=tmpfs
+  #          opts="size=512m,nodev,nosuid,noexec"
+  #          state=mounted
 
   - name: set timezone
     file: src=/usr/share/zoneinfo/Europe/Brussels  dest=/etc/localtime state=link force=yes
@@ -33,7 +33,7 @@
 #     - openvpn
 #     - goaccess
 #     - hugo
-#     - jenkins
+     - jenkins
 #     - nexus
 
   tasks:
