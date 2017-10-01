@@ -34,6 +34,7 @@
   with_items:
     - Dockerfile
     - enableGitHubOAuth.groovy
+    - load-github-token.groovy
     - system.groovy
 
 - name: Create directory to store the Jenkins related data
@@ -46,6 +47,14 @@
   copy:
     content: "{{ GitHub_OAuth_IDs_text }}"
     dest: "{{ docker_jenkins_data_dir }}/GitHub_OAuth_IDs.env"
+
+- name: Load encrypted Github token
+  include_vars: "GitHub_token.yml"
+
+- name: Copy the Github token
+  copy:
+    content: "{{ GitHub_Tokens_text }}"
+    dest: "{{ docker_jenkins_data_dir }}/GitHub_Token.env"
 
 - name: create a directory to store the work ssh keys
   file: path={{ docker_jenkins_data_dir }}/ssh-keys state=directory owner=root group=root

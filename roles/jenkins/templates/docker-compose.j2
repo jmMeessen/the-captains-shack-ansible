@@ -17,6 +17,7 @@ services:
       - ./{{ jenkins_data_dir }}/ssh-keys:/ssh-keys
     env_file:
       - {{ jenkins_data_dir }}/GitHub_OAuth_IDs.env
+      - {{ jenkins_data_dir }}/GitHub_Token.env
     restart: unless-stopped
 
   ssh-agent:
