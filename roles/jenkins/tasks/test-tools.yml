@@ -9,6 +9,11 @@
     owner=jmm
     group=jmm
 
+- name: Re-add the main user to the docker group in case it got reseted
+  user: name="jmm"
+        groups=docker
+        append=yes
+
 - name: Copy the various helper scripts
   copy: src=test-tools/{{ item }} 
         dest={{ work_dir }}/docker/{{ item }}
