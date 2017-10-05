@@ -52,11 +52,11 @@ env.add(new Entry("key1","value1"))
 env.add(new Entry("key2","value2"))
 EnvironmentVariablesNodeProperty envPro = new EnvironmentVariablesNodeProperty(env);
 Slave slave = new DumbSlave(
-        "agent-node","Agent node description",
+        "docker-agent","Agent with Docker inside",
         "/home/jenkins",
         "2",
         Node.Mode.NORMAL,
-        "agent-node-label",
+        "docker",    //label
         new SSHLauncher("ssh-agent",22, "slaveKey-01" ,"","/usr/bin/java", "", "", 15, 3, 5),
         new RetentionStrategy.Always(),
         new LinkedList())
