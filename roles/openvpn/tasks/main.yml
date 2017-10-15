@@ -10,3 +10,4 @@
     - initializeOpenVPN.sh
     - exportOpenVPNsettings.sh
     - restoreOpenVPNsettings.sh
+    - addOpenVPNuser.sh
