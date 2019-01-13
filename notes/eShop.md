@@ -1,11 +1,13 @@
 # Enabling ecommerce
 
+## File system preparations
 * Starting some tests with OpenCart (https://github.com/bitnami/bitnami-docker-opencart)
 * create directoy `/home/data/openCart` (! ownership)
 * Create directory `/home/data/openCart/db_data`
 * Create directory `/home/data/openCart/openCart_data`
 
-* Create docker-compose. yml
+## Docker-compose
+* Create `docker-compose. yml` in `/home/data/openCart`
 
 ```yml
 version: '2'
@@ -33,3 +35,11 @@ opencart:
     volumes:
     - '/home/data/openCart/openCart_data:/bitnami'
 ```
+
+## Setup domain in DBS
+(one time operation). `bimbobulles IN CNAME the-captains-shack.com.`
+
+## Create redirection in NGINX and request certificate
+* In directory `/home/data/nginx/conf/sites-enabled`, copy the `gogs_proxy.conf`to `bimbobulles_proxy.conf`
+* modify the conf for bibmbobulles sub-domain
+* modify `/home/data/docker/request_certificates.sh` to request certificate for bimbobulles sub-domain
