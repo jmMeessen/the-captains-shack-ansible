@@ -43,3 +43,8 @@ opencart:
 * In directory `/home/data/nginx/conf/sites-enabled`, copy the `gogs_proxy.conf`to `bimbobulles_proxy.conf`
 * modify the conf for bibmbobulles sub-domain
 * modify `/home/data/docker/request_certificates.sh` to request certificate for bimbobulles sub-domain
+
+
+Random notes: 
+* https://forums.docker.com/t/proxy-between-docker-network-and-internet/33120
+* https://devops.stackexchange.com/questions/4514/internal-network-between-container-docker-compose-with-outgoing-connection
