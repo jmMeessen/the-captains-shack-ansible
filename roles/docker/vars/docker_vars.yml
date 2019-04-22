@@ -1,8 +1,15 @@
 ---
 dockerUsers:
   - jmm
-  - dadou
 
-docker_version: docker-ce-17.06.2.ce
+dockerComponents:
+  - docker-ce
+  - docker-ce-cli 
+  - containerd.io
+  - docker-compose
 
-docker_compose_version: 1.16.1
+# Can take the values "main", "testing" or "experimental"
+docker_repo: "main"
+
+docker_yum_repo: "https://yum.dockerproject.org/repo/{{ docker_repo }}/centos/7"
+docker_yum_gpgkey: "https://yum.dockerproject.org/gpg"

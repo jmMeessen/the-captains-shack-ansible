@@ -14,12 +14,21 @@
     - device-mapper-persistent-data
     - lvm2
 
-- name: Add docker repository
-  shell: yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+# - name: Add docker repository
+#   shell: yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 
-- name: install docker
-  yum: name={{ docker_version }}
+- name: Add the YUM Docker repository.
+  yum_repository:
+    name: docker
+    description: Docker Repository
+    baseurl: "{{ docker_yum_repo }}"
+    gpgkey: "{{ docker_yum_gpgkey }}"
+    gpgcheck: yes
+
+- name: install docker components
+  yum: name={{ item }}
        state=present
+  with_items: "{{dockerComponents}}"
 
 - name: start docker daemon
   service: name=docker
@@ -32,13 +41,13 @@
         append=yes
   with_items: "{{dockerUsers}}"
 
-- name: Download the script to run docker-compose from a container
-  get_url:
-    url: "https://github.com/docker/compose/releases/download/{{docker_compose_version}}/run.sh"
-    dest: /usr/bin/docker-compose
-    group: root
-    owner: root
-    mode: "0755"
+# - name: Download the script to run docker-compose from a container
+#   get_url:
+#     url: "https://github.com/docker/compose/releases/download/{{docker_compose_version}}/run.sh"
+#     dest: /usr/bin/docker-compose
+#     group: root
+#     owner: root
+#     mode: "0755"
 
 - name: Directory to store the docker-compose config
   file: path={{ work_dir }}/docker state=directory owner=root group=root

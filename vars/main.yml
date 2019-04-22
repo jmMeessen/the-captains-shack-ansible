@@ -3,7 +3,7 @@ security_autoupdate_enabled: true
 work_dir: /home/data
 adminUsers:
   - jmm
-  - dadou
+#  - dadou
 
 security_sudoers_passwordless: "{{ adminUsers }}"
 

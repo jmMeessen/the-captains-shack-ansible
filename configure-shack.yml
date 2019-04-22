@@ -26,15 +26,15 @@
   roles:
      - security_level1
      - docker
-     - git
-     - nginx
-     - gogs
-     - backup
-     - letsencrypt
-     - openvpn
-     - goaccess
-     - hugo
-     - jenkins
+    #  - git
+    #  - nginx
+    #  - gogs
+    #  - backup
+    #  - letsencrypt
+    #  - openvpn
+    #  - goaccess
+    #  - hugo
+    #  - jenkins
      #- nexus
      #- survey
 
