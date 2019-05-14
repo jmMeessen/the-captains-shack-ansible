@@ -3,8 +3,11 @@
 # move to the docker directory
 cd {{ work_dir }}/docker
 
-# set the local tempdir needed by docker-compose
-export TMPDIR={{ work_dir }}/data/docker/temp
+# # set the local tempdir needed by docker-compose
+# export TMPDIR={{ work_dir }}/data/docker/temp
+
+# Load the environment with the list of compose files
+. ./setComposeList.sh
 
 # stop compose
 docker-compose stop
