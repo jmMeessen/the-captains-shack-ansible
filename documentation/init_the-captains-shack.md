@@ -5,7 +5,7 @@
 - [ ] Check that the correct docker versions are set for the docker engine et docker compose. (see https://github.com/moby/moby/blob/master/CHANGELOG.md and https://github.com/docker/compose/blob/master/CHANGELOG.md). These values are set in `roles/docker/vars/docker-vars.yml`.
 
 ## Main Installation
-- [ ] Request a re-init of the server via the Kimsufi console. Choose `CentOS 7.3` in English.
+- [ ] Request a re-init of the server via the Kimsufi console. Choose `CentOS 7` in English.
 - [ ] Wait for the new password to be sent by mail. Copy it .
 - [ ] Start the bootstrap Ansible script `kimsufi_bootstrap.sh`. The script asks for the new root password (just past it) and the ansible-vault password.
 - [ ] Connect to the server with `ssh jmm@the-captains-shack.com`, 

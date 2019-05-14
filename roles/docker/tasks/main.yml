@@ -14,21 +14,43 @@
     - device-mapper-persistent-data
     - lvm2
 
-# - name: Add docker repository
-#   shell: yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+- name: Add docker repository
+  command: yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+  args:
+    creates: /etc/yum.repos.d/docker-ce.repo
 
-- name: Add the YUM Docker repository.
-  yum_repository:
-    name: docker
-    description: Docker Repository
-    baseurl: "{{ docker_yum_repo }}"
-    gpgkey: "{{ docker_yum_gpgkey }}"
-    gpgcheck: yes
+# - name: Add the YUM Docker repository.
+#   yum_repository:
+#     name: docker
+#     description: Docker Repository
+#     baseurl: "{{ docker_yum_repo }}"
+#     gpgkey: "{{ docker_yum_gpgkey }}"
+#     gpgcheck: yes
 
 - name: install docker components
   yum: name={{ item }}
        state=present
   with_items: "{{dockerComponents}}"
+
+- name: create the new docker work directory 
+  file: path=/home/docker 
+        state=directory 
+        owner=root 
+        group=root
+
+- name: create the docker configuratio directory 
+  file: path=/etc/docker 
+        state=directory 
+        owner=root 
+        group=root
+
+- name: copy the custom docker configuration file
+  copy: 
+    src: daemon.json 
+    dest: /etc/docker/daemon.json
+    owner: root 
+    group: root
+    mode: 0600
 
 - name: start docker daemon
   service: name=docker
@@ -50,10 +72,16 @@
 #     mode: "0755"
 
 - name: Directory to store the docker-compose config
-  file: path={{ work_dir }}/docker state=directory owner=root group=root
+  file: path={{ work_dir }}/docker 
+        state=directory 
+        owner=root 
+        group=root
 
 - name: create a temporary directory for docker compose
-  file: path={{ work_dir }}/docker/temp state=directory owner=root group=root
+  file: path={{ work_dir }}/docker/temp 
+        state=directory 
+        owner=root 
+        group=root
 
 - name: Update restart_web bash and copy
   template: src={{ item }}.j2
