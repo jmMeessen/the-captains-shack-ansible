@@ -1,4 +1,4 @@
 .vagrant
 .idea
 the-captains-shack.iml
-*.retry
+.retry
