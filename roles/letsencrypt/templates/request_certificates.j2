@@ -37,12 +37,12 @@ https://acme-v01.api.letsencrypt.org/directory  --rsa-key-size 4096 --verbose -m
 --renew-by-default --non-interactive -d ci.the-captains-shack.com
 
 # request nexus certificate
-docker run -it --rm -p 443:443 -p 80:80 --name letsencrypt \
--v "/etc/letsencrypt:/etc/letsencrypt" \
--v "/var/lib/letsencrypt:/var/lib/letsencrypt" \
-certbot/certbot:latest certonly --standalone --text --agree-tos --server \
-https://acme-v01.api.letsencrypt.org/directory  --rsa-key-size 4096 --verbose -m jean-marc@meessen-web.org \
---renew-by-default --non-interactive -d nexus.the-captains-shack.com
+#docker run -it --rm -p 443:443 -p 80:80 --name letsencrypt \
+#-v "/etc/letsencrypt:/etc/letsencrypt" \
+#-v "/var/lib/letsencrypt:/var/lib/letsencrypt" \
+#certbot/certbot:latest certonly --standalone --text --agree-tos --server \
+#https://acme-v01.api.letsencrypt.org/directory  --rsa-key-size 4096 --verbose -m jean-marc@meessen-web.org \
+#--renew-by-default --non-interactive -d nexus.the-captains-shack.com
 
 # # request LimeSurvey certificate
 # docker run -it --rm -p 443:443 -p 80:80 --name letsencrypt \
